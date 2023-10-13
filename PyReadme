@@ -3,7 +3,7 @@
       Lê um arquivo Excel chamado 'total_mod.xlsx' e armazena os em um objeto 'dados'
 
 2-Processamento de Dados:
-  -Criação de um objeto chamado 'dados_limpos' a partir de 'dado
+  -Criação de um objeto chamado 'dados_limpos' a partir de 'dados
   -dados_limpos = dados.copy(): Cria uma cópia do objeto 'dados'
   -dados_limpos = dados_limpos.dropna(how='all'): 
       Remove linhas completamente vazias do objeto 'dados_limpos'
