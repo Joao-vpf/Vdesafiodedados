@@ -1,6 +1,6 @@
 # V desafio em Ciências de Dados PUC GO
 ##Equipe:
-![João Victor Porto] (-https://avatars.githubusercontent.com/u/98399932?v=4)
+![João Victor Porto] ([-https://avatars.githubusercontent.com/u/98399932?v=4](https://github.com/Joao-vpf))
 
 ##Desenvolvendo Soluções Inteligentes para o Mercado de Hospedagem Predição de Preços
 
