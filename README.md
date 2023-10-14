@@ -2,9 +2,7 @@
 
 ## Equipe:
 
-<div align="center">
-  <img src="https://avatars.githubusercontent.com/u/98399932?v=4" alt="João Victor Porto" width="200" style="border-radius: 50%;">
-</div>
+![avatar](https://github.com/Joao-vpf)
 
 
 ## Desenvolvendo Soluções Inteligentes para o Mercado de Hospedagem Predição de Preços
