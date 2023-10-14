@@ -2,9 +2,9 @@
 
 ## Equipe:
 
-[![João Victor Porto](https://avatars.githubusercontent.com/u/98399932?v=4)](https://github.com/joaovictorps)
-[![João Pedro Lemes](https://avatars.githubusercontent.com/u/104952737?v=4)](https://github.com/joaopedrolemes)
-[![João Augusto](https://avatars.githubusercontent.com/u/136506636?v=4)](https://github.com/joaoaugusto)
+[![João Victor Porto](https://avatars.githubusercontent.com/u/98399932?v=4)](https://github.com/Joao-vpf)
+[![João Pedro Lemes](https://avatars.githubusercontent.com/u/104952737?v=4)](https://github.com/Lixomensch)
+[![João Augusto](https://avatars.githubusercontent.com/u/136506636?v=4)](https://github.com/tenma2010)
 
 
 
