@@ -12,8 +12,11 @@
 
 ## Projeto:
 
-### :
+Nesse projeto iremos analisar os dados dos Airbnb referentes à cidade do Rio de Janeiro e ver quais insights podem ser extraídos a partir desses dados brutos.
 
+### Dados:
+
+Os dados já pre-modificados estão no link: [colab] https://docs.google.com/spreadsheets/d/1ix98wju56E6pguswDQhCuiLyve-AKCIi/edit?usp=sharing&ouid=112578483692686555513&rtpof=true&sd=true
 
 link do drive onde tem os mapas: https://drive.google.com/drive/folders/10d2ZW7smwZaC-63vOAqaq3Jk5wPkJeM1?usp=drive_link
 
