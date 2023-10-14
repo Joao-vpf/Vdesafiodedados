@@ -2,7 +2,7 @@
 
 ## Equipe:
 
-![avatar](https://github.com/Joao-vpf)
+![!avatar](https://github.com/Joao-vpf)
 
 
 ## Desenvolvendo Soluções Inteligentes para o Mercado de Hospedagem Predição de Preços
