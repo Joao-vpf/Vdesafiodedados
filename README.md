@@ -17,12 +17,13 @@ Nesse projeto iremos analisar os dados dos Airbnb referentes à cidade do Rio de
 ### Dados:
 
 <div>
-  <span>Dados brutos com colunas modificas:</span>
+  <span>Dados brutos com colunas modificadas:</span>
   <br>
-<a href="https://docs.google.com/spreadsheets/d/1ix98wju56E6pguswDQhCuiLyve-AKCIi/edit?usp=sharing&ouid=112578483692686555513&rtpof=true&sd=true" target="_blank"  style="padding-left: 20px;">
-  <img src="https://www.svgrepo.com/show/452218/google-drive.svg" width="45" height="45"/>
-</a>
+  <a href="https://docs.google.com/spreadsheets/d/1ix98wju56E6pguswddQhCuiLyve-AKCIi/edit?usp=sharing&ouid=112578483692686555513&rtpof=true&sd=true" target="_blank" style="margin-left: 20px;">
+    <img src="https://www.svgrepo.com/show/452218/google-drive.svg" width="45" height="45"/>
+  </a>
 </div>
+
 
 link do drive onde tem os mapas: https://drive.google.com/drive/folders/10d2ZW7smwZaC-63vOAqaq3Jk5wPkJeM1?usp=drive_link
 
