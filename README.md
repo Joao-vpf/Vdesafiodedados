@@ -3,7 +3,7 @@
 ## Equipe:
 
 
-<img src="https://avatars.githubusercontent.com/u/98399932?v=4" alt="João Victor Porto" width="100" style="border: 2px solid  gray; border-radius:15px">
+<img src="https://avatars.githubusercontent.com/u/98399932?v=4" alt="João Victor Porto" height="auto" width="200" style="border-radius:50%">
 
 
 
