@@ -15,27 +15,14 @@
 Nesse projeto iremos analisar os dados dos Airbnb referentes à cidade do Rio de Janeiro e ver quais insights podem ser extraídos a partir desses dados brutos.
 
 ### Dados:
-<div>
-  <span> Dados brutos: </span>
-  <a href="https://docs.google.com/spreadsheets/d/1ix98wju56E6pguswDQhCuiLyve-AKCIi/edit?usp=sharing&ouid=112578483692686555513&rtpof=true&sd=true" target="_blank">
-    <img src="https://cdn-icons-png.flaticon.com/512/5968/5968557.png" width="30" height="30"/>
-  </a>
-</div>
-<div>
-  <span> Dados brutos com colunas modificadas: </span>
-  <a href="https://docs.google.com/spreadsheets/d/1ix98wju56E6pguswDQhCuiLyve-AKCIi/edit?usp=sharing&ouid=112578483692686555513&rtpof=true&sd=true" target="_blank">
-    <img src="https://cdn-icons-png.flaticon.com/512/5968/5968557.png" width="30" height="30"/>
-  </a>
-</div>
 
+[![Static Badge](https://img.shields.io/badge/Dados_brutos-grey?style=for-the-badge&logo=googlesheets&link=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1ix98wju56E6pguswDQhCuiLyve-AKCIi%2Fedit%3Fusp%3Dsharing%26ouid%3D112578483692686555513%26rtpof%3Dtrue%26sd%3Dtrue)](https://docs.google.com/spreadsheets/d/1jtZ8q0LG3WczgN6ORPzajlErQatH7_3p/edit?usp=sharing&ouid=112578483692686555513&rtpof=true&sd=true)  [![Static Badge](https://img.shields.io/badge/Dados_premodificados-grey?style=for-the-badge&logo=googlesheets&link=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1ix98wju56E6pguswDQhCuiLyve-AKCIi%2Fedit%3Fusp%3Dsharing%26ouid%3D112578483692686555513%26rtpof%3Dtrue%26sd%3Dtrue)](https://docs.google.com/spreadsheets/d/1ix98wju56E6pguswDQhCuiLyve-AKCIi/edit?usp=sharing&ouid=112578483692686555513&rtpof=true&sd=true)  
 
-![Static Badge](https://img.shields.io/badge/Dado_premodificados-grey?logo=googlesheets&link=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1ix98wju56E6pguswDQhCuiLyve-AKCIi%2Fedit%3Fusp%3Dsharing%26ouid%3D112578483692686555513%26rtpof%3Dtrue%26sd%3Dtrue)
+### Codigo:
+
+[![Static Badge](https://img.shields.io/badge/Codigo-Link-orange?style=for-the-badge&logo=googlecolab&link=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1ix98wju56E6pguswDQhCuiLyve-AKCIi%2Fedit%3Fusp%3Dsharing%26ouid%3D112578483692686555513%26rtpof%3Dtrue%26sd%3Dtrue)](https://colab.research.google.com/drive/1uCbaxdK39zXcpc2FMXvMa06_0hzMAiBD?usp=sharing)  [![Static Badge](https://img.shields.io/badge/Explica%C3%A7%C3%A3o%20do%20codigo-Link-blue?style=for-the-badge&link=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1ix98wju56E6pguswDQhCuiLyve-AKCIi%2Fedit%3Fusp%3Dsharing%26ouid%3D112578483692686555513%26rtpof%3Dtrue%26sd%3Dtrue)](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/PyReadme)
 
 
 
 
 
-link do drive onde tem os mapas: https://drive.google.com/drive/folders/10d2ZW7smwZaC-63vOAqaq3Jk5wPkJeM1?usp=drive_link
-
-link do codigo no colab: https://colab.research.google.com/drive/1uCbaxdK39zXcpc2FMXvMa06_0hzMAiBD?usp=sharing
-converta para markdown para hmtl acima
