@@ -2,7 +2,7 @@
 
 ## Equipe:
 
-[![Visitar Perfil](https://img.shields.io/badge/Visitar-Perfil-brightgreen)](https://github.com/Joao-vpf)
+[![Visitar Perfil](https://github.com/Joao-vpf)
 
 
 ## Desenvolvendo Soluções Inteligentes para o Mercado de Hospedagem Predição de Preços:
