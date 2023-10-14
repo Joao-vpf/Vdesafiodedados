@@ -1,4 +1,4 @@
-![image](https://github.com/Joao-vpf/Vdesafiodedados/assets/98399932/79a8e191-7cb7-436d-abbe-d1c5e2eab393)# V desafio em Ciências de Dados PUC GO
+# V desafio em Ciências de Dados PUC GO
 
 ## Equipe:
 
