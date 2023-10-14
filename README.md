@@ -16,7 +16,7 @@ Nesse projeto iremos analisar os dados dos Airbnb referentes à cidade do Rio de
 
 ### Dados:
 
-Os dados já pre-modificados estão no link: [![Abrir dados](https://www.svgrepo.com/show/452218/google-drive.svg  | width=100)](https://docs.google.com/spreadsheets/d/1ix98wju56E6pguswDQhCuiLyve-AKCIi/edit?usp=sharing&ouid=112578483692686555513&rtpof=true&sd=true)
+Os dados já pre-modificados estão no link: [![Abrir dados](https://www.svgrepo.com/show/452218/google-drive.svg)](https://docs.google.com/spreadsheets/d/1ix98wju56E6pguswDQhCuiLyve-AKCIi/edit?usp=sharing&ouid=112578483692686555513&rtpof=true&sd=true)
 
 link do drive onde tem os mapas: https://drive.google.com/drive/folders/10d2ZW7smwZaC-63vOAqaq3Jk5wPkJeM1?usp=drive_link
 
