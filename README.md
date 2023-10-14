@@ -8,6 +8,7 @@
   [<img src="https://avatars.githubusercontent.com/u/104952737?v=4" alt="João Pedro Lemes" width="100">](https://github.com/Lixomensch)
   [<img src="https://avatars.githubusercontent.com/u/136506636?v=4" alt="João Augusto" width="100">](https://github.com/tenma2010)
   [<img src="https://avatars.githubusercontent.com/u/79798116?v=4" alt="João Marcos" width="100">](https://github.com/JohnMarcosP)
+  [<img src = "https://avatars.githubusercontent.com/u/147951553?v=4" alt ="Ludmila" width = "100">](https://github.com/LudLES-t)
   
 </div>
 
