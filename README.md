@@ -21,7 +21,6 @@ Nesse projeto iremos analisar os dados dos Airbnb referentes à cidade do Rio de
     <img src="https://cdn-icons-png.flaticon.com/512/5968/5968557.png" width="30" height="30"/>
   </a>
 </div>
-
 <div>
   <span> Dados brutos com colunas modificadas: </span>
   <a href="https://docs.google.com/spreadsheets/d/1ix98wju56E6pguswDQhCuiLyve-AKCIi/edit?usp=sharing&ouid=112578483692686555513&rtpof=true&sd=true" target="_blank">
