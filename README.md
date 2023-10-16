@@ -28,4 +28,19 @@ Nesse projeto iremos analisar os dados dos Airbnb referentes à cidade do Rio de
 ](https://colab.research.google.com/drive/1uCbaxdK39zXcpc2FMXvMa06_0hzMAiBD?usp=sharing)  [![Static Badge](https://img.shields.io/badge/Explica%C3%A7%C3%A3o%20do%20codigo-Link-blue?style=for-the-badge)
 ](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/PyReadme)
 
+## Explicação da implementação:
+
+### Pre-processamento dos dados:
+
+1. Foram deletadas todas as colunas que faziam referência ao host do Airbnb, pois o host não possui relação direta com a localização; por exemplo, as colunas de AA a AW foram removidas.
+2. Sumários, descrições, IDs e URLs foram eliminados, uma vez que não afetam o cálculo do preço, mas sim a escolha do cliente.
+3. Nomes gerais, como cidade, estado e bairro, foram excluídos, uma vez que podem ser interpretados com mais facilidade e precisão a partir das coordenadas de latitude e longitude.
+4. Colunas com filtros únicos, como a coluna de confirmação de avaliação e a localização exata, foram removidas, uma vez que não são muito relevantes para as colunas de referência.
+Extra:
+1. Foram corrigidos latitude e longitude para ficarem formatados como numero
+
+### Codigo para limpeza dos dados:
+
+
+
 
