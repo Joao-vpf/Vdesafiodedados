@@ -181,4 +181,153 @@ df_copy
   -if any(c.isalpha() for c in comodidade) and comodidade in map_preco_normalizado: Verifica se a comodidade já existe em map_preco_normalizado
   -total_rating += map_preco_normalizado[comodidade]: é feito o calculo da classificalção da comodidade
   -df_copy.at[index, 'rating_amenities'] = total_rating: armazena as classificações em df_copy() onde o rating é atribuido a coluna 'rating_amenities'
+
+6-Manipulação da lista comodidades:
+
+  min_preco = min(preco for precos, count in comodidades_dict.values() for preco in precos)
+max_preco = max(preco for precos, count in comodidades_dict.values() for preco in precos)
+
+for comodidade, (precos, count) in comodidades_dict.items():
+    preco_normalizado = (sum(precos) / count - min_preco) / (max_preco - min_preco)
+    map_preco_normalizado[comodidade] = preco_normalizado
+    print(comodidade, preco_normalizado)
+/*
+  -Calculo do valor mínimo (min_preco) e o valor máximo (max_preco) dos preços registrados no 'comodidades_dict'
+  -for comodidade, (precos, count) in comodidades_dict.items(): Para cada comodidade, ele recupera os preços (precos) e a contagem (count) das comodidade
+  -preco_normalizado = (sum(precos) / count - min_preco) / (max_preco - min_preco): 
+    A soma dos preços dividida pelo número de preços registrados
+    Em seguida, ele subtrai o (min_preco) para garantir que todos os preços estejam na mesma escala.
+    Divide pelo intervalo dos preços para normalizar os valores
+    Armazena os resultados no objeto 'map_preco_normalizado'
+*/
+
+df_copy = df.copy()
+
+for index, row in df.iterrows():
+    comodidades = row['amenities']
+    comodidades_list = comodidades.split(',')
+    total_rating = 0
+
+for comodidade in comodidades_list:
+        comodidade = comodidade.strip()
+        comodidade = comodidade.replace('}', '').replace('{', '').replace('-', '').replace('/', '')
+        comodidade = comodidade.lower()
+
+        if any(c.isalpha() for c in comodidade) and comodidade in map_preco_normalizado:
+            total_rating += map_preco_normalizado[comodidade]
+
+    # Armazena o rating total no DataFrame copiado
+    df_copy.at[index, 'rating_amenities'] = total_rating
+
+
+df_copy
+
+  -df.copy() é usada para armazenar as classificações totais das comodidades
+  -for index, row in df.iterrows(): itera as linhas do df_copy() para tratamento indivudial
+  -comodidades = row['amenities']: Extraindo da coluna amenities
+  - total_rating = 0: inicializado como 0. A variável irá calcular o rating das comodidades
+  -strip(): Remove espaços em branco no início e no final do texto
+  -replace('}', ''): Remove qualquer caractere '}'
+  -replace('{', ''): Remove qualquer caractere '{'
+  -replace('-', ''): Remove quaisquer traços '-'
+  -replace('/', ''): Remove quaisquer barras '/'
+  -lower(): Converte o texto para minúsculo
+  -if any(c.isalpha() for c in comodidade) and comodidade in map_preco_normalizado: Verifica se a comodidade já existe em map_preco_normalizado
+  -total_rating += map_preco_normalizado[comodidade]: é feito o calculo da classificalção da comodidade
+  -df_copy.at[index, 'rating_amenities'] = total_rating: armazena as classificações em df_copy() onde o rating é atribuido a coluna 'rating_amenities'
   
+7-Dummy
+
+  if False:
+    colunas_dummy = ["property_type","room_type", "bed_type"]
+    df_copy = pd.get_dummies(df_copy, columns=colunas_dummy)
+    df_copy
+/*
+  -colunas_dummy = ["property_type", "room_type", "bed_type"]: armazena as colunas que o objeto deseja processar
+  -df_copy = pd.get_dummies(df_copy, columns=colunas_dummy): o 'pd.get_dummies' cria variáveis dummy para as colunas pré estabelecidas em 'colunas_dummy' onde cada categoria única nas colunas especificadas é convertida em colunas binárias (0 ou 1) com base na presença ou ausência dessa categoria em cada linha.
+*/
+
+  if False:
+    colunas_tipo = list(df_copy.loc[:, 'property_type_0':'bed_type_4'].columns)
+    print(colunas_tipo)
+  print(df_copy.isna().sum())
+
+/*
+  -colunas_tipo = list(df_copy.loc[:, 'property_type_0':'bed_type_4'].columns): a nova lista 'colunas_tipo' é preenchida com nomes das colunas do objeto 'df_copy' que estão no intervalo das colunas 'property_type_0' a 'bed_type_4'.
+  -list(): converte o nome das colunas em uma lista de strings
+*/
+
+  pode = 0
+if pode:
+  limit = 0.1
+  percentage_values = df_copy['price_normal'].value_counts(normalize=True) * 100
+  pd.options.display.max_rows = None
+  valores_acima_limite = percentage_values[percentage_values.values >= limit]
+  valores_abaixo_limite = percentage_values[percentage_values.values < limit]
+  print(percentage_values)
+/*
+  -percentage_values = df_copy['price_normal'].value_counts(normalize=True) * 100:  
+    .calcula a porcentagem de valores na coluna 'price_normal'
+    .df_copy. value_counts(normalize=True): conta a frequência de cada valor e multiplica por 100 para obter as porcentagens(essas porcentagens representam a distribuição dos valores nessa coluna)
+  -pd.options.display.max_rows = None: configura a biblioteca Pandas para exibir todas as linhas do objeto ao imprimir
+  -valores_acima_limite e valores_abaixo_limite: 
+    .valores_acima_limite possua as porcentagens que estão acima do valor de 'limit'
+    .valores_abaixo_limite possua as porcentagens que estão a baixo do valor de 'limit'
+*/
+
+  if pode:
+  df_selecionado = df_copy[df_copy['price_normal'].isin(valores_acima_limite.index)].copy()
+  df_selec_abaixo = df_copy[df_copy['price_normal'].isin(valores_abaixo_limite.index)].copy()
+  print(len(df_selecionado))
+  print(len(df_selec_abaixo))
+else:
+  df_selecionado = df_copy.copy()
+
+/*
+  -df_selecionado = df_copy[df_copy['price_normal'].isin(valores_acima_limite.index)].copy(): cria o objeto 'df_selecionado' que recebe os valores do objeto 'valores_acima_limite'
+  - df_selec_abaixo = df_copy[df_copy['price_normal'].isin(valores_abaixo_limite.index)].copy(): cria o objeto 'df_selec_abaixo' que recebe os valores do objeto 'valores_abaixo_limite'
+*/
+
+8-IA
+
+  if True:
+  from sklearn.model_selection import train_test_split
+  from sklearn.ensemble import RandomForestRegressor
+
+  def avaliar_desempenho(df_treinamento):
+      df_treinamento = df_treinamento.dropna()
+
+      X = df_treinamento.drop("price", axis=1)
+      y = df_treinamento["price"]
+
+      X_treino, X_teste, y_treino, y_teste = train_test_split(X, y, test_size=0.2, random_state=42)
+
+      modelo = RandomForestRegressor()
+
+      modelo.fit(X_treino, y_treino)
+
+      previsoes = modelo.predict(X_teste)
+
+      mse = mean_squared_error(y_teste, previsoes)
+      r2 = r2_score(y_teste, previsoes)
+      mae = mean_absolute_error(y_teste, previsoes)
+
+      return mse, r2, mae
+  colunas_fixas = ["review_scores_location",'latitude','longitude', "rating_amenities", "minimum_nights","price","accommodates","guests_included", 'beds','bedrooms','bathrooms', "maximum_nights",'property_type','room_type','bed_type']
+
+  colunas_para_treinamento = colunas_fixas
+  df_treinamento = df_selecionado_01[colunas_para_treinamento]
+  mse, r2, mae = avaliar_desempenho(df_treinamento)
+
+  print("Melhor R^2:", r2)
+  print("Melhor MSE:", mse)
+  print("Melhor MAE:", mae)
+
+    -avaliar_desempenho(df_treinamento):
+      .Remove todas as linhas que contenham valores ausentes (NaN).
+      .X = df_treinamento.drop("price", axis=1): divide em variáveis X
+      .y = df_treinamento["price"]: divide em variáveis de destino (Y)
+      .train_test_split: divide os conjuntos de treinamento e os conjuntos de teste
+      .modelo = RandomForestRegressor(): cria o modelo de regressão floresta aleatória, o modelo é treinado no conjunto de treinamento e cria previsões no conjunto teste
+      .'mse = mean_squared_error(y_teste, previsoes)', 'r2 = r2_score(y_teste, previsoes)', 'mae = mean_absolute_error(y_teste, previsoes)': calculam métricas de avaliação
+
