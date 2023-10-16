@@ -35,7 +35,15 @@ Nesse projeto iremos analisar os dados dos Airbnb referentes à cidade do Rio de
 ](https://colab.research.google.com/drive/1uCbaxdK39zXcpc2FMXvMa06_0hzMAiBD?usp=sharing)  [![Static Badge](https://img.shields.io/badge/Explica%C3%A7%C3%A3o%20do%20codigo-Link-blue?style=for-the-badge)
 ](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/PyReadme)
 
-## implementação:
+## Implementação:
+
+A implementação do desafio foi separada em partes, já que os dados brutos contém muitos ruidos e informações desnecessarias que podem afetar o calculo e por consequencia a qualidade a da resposta. A implementação teve a seguintes etapas:
+
+1. Pre-processamento dos dados;
+2. Limpeza dos dados;
+3. Completar/corrigir colunas;
+4. Normalizar colunas;
+5. Finalizar/calcular resposta
 
 ### Pre-processamento dos dados:
 
