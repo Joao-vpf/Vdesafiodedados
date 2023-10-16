@@ -1,23 +1,20 @@
-1- Leitura de dados:
-  -dados = pd.read_excel('drive/MyDrive/Colab Notebooks/total_mod.xlsx'): 
-      Lê um arquivo Excel chamado 'total_mod.xlsx' e armazena os em um objeto 'dados'
+1- Leitura de dados: <br>
+Lê um arquivo Excel chamado 'total_mod.xlsx' e armazena os em um objeto 'dados'
+```
+    dados = pd.read_excel('drive/MyDrive/Colab Notebooks/total_mod.xlsx'): 
+```
 
+      
 2-Processamento de Dados:
-  -Criação de um objeto chamado 'dados_limpos' a partir de 'dados
-  -dados_limpos = dados.copy(): Cria uma cópia do objeto 'dados'
-  -dados_limpos = dados_limpos.dropna(how='all'): 
-      Remove linhas completamente vazias do objeto 'dados_limpos'
-
-  -dados_limpos.drop(["review_scores_cleanliness", "review_scores_checkin", "review_scores_communication"], axis=1, inplace=True): 
-    Remove as colunas especificadas do objeto 'dados_limpos'
-
-  -dados_limpos = dados_limpos.apply(lambda x: pd.to_numeric(x, errors='ignore')):
-      Converte todos os valores possíveis em valores numéricos no objeto 'dados_limpos'
-
-  -Corrige colunas com símbolos '$' e ','
-  -Mapeia colunas de tipos de propriedades para valores numéricos
+```
+  df = dados.copy() #dados finais apos o processo de limpeza
+  df = df.dropna(how='all')# Remove linhas completamente vazias
+  df.drop(["review_scores_cleanliness", 'review_scores_value','review_scores_rating', 'review_scores_accuracy', "review_scores_checkin", "review_scores_communication","availability_30","availability_60","availability_90","availability_365","extra_people","security_deposit",'weekly_price', 'monthly_price','cleaning_fee','square_feet'], axis=1, inplace=True)#faça o drop dessas colunas
+  print(df.isna().sum())
+```
 
 3-Imputação de Dados Ausentes:
+```
   df_copy = df.copy()
   
   df_missing = df_copy[df_copy['review_scores_location'].isna()]
@@ -51,10 +48,9 @@
 
   -df_copy.loc[df_copy['review_scores_location'].isna(), 'review_scores_location'] = imputed_scores: 
       Os valores previstos são inseridos no objeto 'df_copy' preenchendo as linhas onde 'review_scores_location' estava ausente
-
+```
 4- Análise e Visualização de Dados:
-(todo o codigo a baixo está em FALSE)
-  if False:
+```
     # Criar o gráfico de dispersão
     plot_df = df[['latitude', 'longitude', 'review_scores_location']]
   
@@ -83,9 +79,9 @@
     -O conjunto de dados é dividido em conjuntos de treinamento e teste usando a função train_test_split. O KNN foi treinado com base nos dados do conjunto de treinamento
     -A métrica de erro médio quadrático (MSE) é calculada para avaliar a diferença entre as previsões do modelo e os valores reais
     -Os valores de MSE e R² são impressos na saída para avaliar a precisão do modelo KNN
-
+```
 5- Criação da lista comodidades:
-
+```
 comodidades_dict = {}
 
 for index, row in df.iterrows():
@@ -127,9 +123,9 @@ print(len(comodidades_dict))
     verifica se a comodidade já existe. Caso ja exista o código atualiza as informações correspondentes, caso não exista é criado uma nova comodidade
   -map_preco_normalizado = {}: Após a iteração por todas as comodidades das propriedades, o código cria um mapa chamado 'map_preco_normalizado'
   -print(len(comodidades_dict)): Isso exibe o número de comodidades únicas registradas. Cada comodidade única tem uma entrada
-
+```
 6-Manipulação da lista comodidades:
-
+```
   min_preco = min(preco for precos, count in comodidades_dict.values() for preco in precos)
 max_preco = max(preco for precos, count in comodidades_dict.values() for preco in precos)
 
@@ -181,9 +177,9 @@ df_copy
   -if any(c.isalpha() for c in comodidade) and comodidade in map_preco_normalizado: Verifica se a comodidade já existe em map_preco_normalizado
   -total_rating += map_preco_normalizado[comodidade]: é feito o calculo da classificalção da comodidade
   -df_copy.at[index, 'rating_amenities'] = total_rating: armazena as classificações em df_copy() onde o rating é atribuido a coluna 'rating_amenities'
-
+```
 6-Manipulação da lista comodidades:
-
+```
   min_preco = min(preco for precos, count in comodidades_dict.values() for preco in precos)
 max_preco = max(preco for precos, count in comodidades_dict.values() for preco in precos)
 
@@ -235,9 +231,9 @@ df_copy
   -if any(c.isalpha() for c in comodidade) and comodidade in map_preco_normalizado: Verifica se a comodidade já existe em map_preco_normalizado
   -total_rating += map_preco_normalizado[comodidade]: é feito o calculo da classificalção da comodidade
   -df_copy.at[index, 'rating_amenities'] = total_rating: armazena as classificações em df_copy() onde o rating é atribuido a coluna 'rating_amenities'
-  
+ ```
 7-Dummy
-
+```
   if False:
     colunas_dummy = ["property_type","room_type", "bed_type"]
     df_copy = pd.get_dummies(df_copy, columns=colunas_dummy)
@@ -287,9 +283,9 @@ else:
   -df_selecionado = df_copy[df_copy['price_normal'].isin(valores_acima_limite.index)].copy(): cria o objeto 'df_selecionado' que recebe os valores do objeto 'valores_acima_limite'
   - df_selec_abaixo = df_copy[df_copy['price_normal'].isin(valores_abaixo_limite.index)].copy(): cria o objeto 'df_selec_abaixo' que recebe os valores do objeto 'valores_abaixo_limite'
 */
-
+```
 8-IA
-
+```
   if True:
   from sklearn.model_selection import train_test_split
   from sklearn.ensemble import RandomForestRegressor
@@ -330,4 +326,4 @@ else:
       .train_test_split: divide os conjuntos de treinamento e os conjuntos de teste
       .modelo = RandomForestRegressor(): cria o modelo de regressão floresta aleatória, o modelo é treinado no conjunto de treinamento e cria previsões no conjunto teste
       .'mse = mean_squared_error(y_teste, previsoes)', 'r2 = r2_score(y_teste, previsoes)', 'mae = mean_absolute_error(y_teste, previsoes)': calculam métricas de avaliação
-
+```
