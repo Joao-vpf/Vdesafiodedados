@@ -35,7 +35,7 @@ Nesse projeto iremos analisar os dados dos Airbnb referentes à cidade do Rio de
 ](https://colab.research.google.com/drive/1uCbaxdK39zXcpc2FMXvMa06_0hzMAiBD?usp=sharing)  [![Static Badge](https://img.shields.io/badge/Explica%C3%A7%C3%A3o%20do%20codigo-Link-blue?style=for-the-badge)
 ](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/PyReadme)
 
-## Explicação da implementação:
+## implementação:
 
 ### Pre-processamento dos dados:
 
