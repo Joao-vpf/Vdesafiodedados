@@ -20,7 +20,7 @@ Nesse projeto iremos analisar os dados dos Airbnb referentes à cidade do Rio de
 
 ### Motivo do desafio:
 
-
+O desafio busca promover o trabalho em equipe, analise exploratória de dados, filtragem de dados, modelagem e algoritmos, aprendizado de linguagens de programação, machine learning e raciocínio lógico perante problemas pertinentes.
 
 ### Dados:
 
