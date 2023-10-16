@@ -233,26 +233,6 @@ df_copy
   -df_copy.at[index, 'rating_amenities'] = total_rating: armazena as classificações em df_copy() onde o rating é atribuido a coluna 'rating_amenities'
  ```
 
-\\* essa foi excluida
-7-Dummy
-  if False:
-    colunas_dummy = ["property_type","room_type", "bed_type"]
-    df_copy = pd.get_dummies(df_copy, columns=colunas_dummy)
-    df_copy
-/*
-  -colunas_dummy = ["property_type", "room_type", "bed_type"]: armazena as colunas que o objeto deseja processar
-  -df_copy = pd.get_dummies(df_copy, columns=colunas_dummy): o 'pd.get_dummies' cria variáveis dummy para as colunas pré estabelecidas em 'colunas_dummy' onde cada categoria única nas colunas especificadas é convertida em colunas binárias (0 ou 1) com base na presença ou ausência dessa categoria em cada linha.
-*/
-
-  if False:
-    colunas_tipo = list(df_copy.loc[:, 'property_type_0':'bed_type_4'].columns)
-    print(colunas_tipo)
-  print(df_copy.isna().sum())
-
-/*
-  -colunas_tipo = list(df_copy.loc[:, 'property_type_0':'bed_type_4'].columns): a nova lista 'colunas_tipo' é preenchida com nomes das colunas do objeto 'df_copy' que estão no intervalo das colunas 'property_type_0' a 'bed_type_4'.
-  -list(): converte o nome das colunas em uma lista de strings
-*/
 
 \\\\\ * corrigir essa parte tem no codigo
 ```
