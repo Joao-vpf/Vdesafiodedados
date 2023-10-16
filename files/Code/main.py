@@ -19,9 +19,11 @@ from sklearn.model_selection import train_test_split
 import tensorflow as tf
 from sklearn.metrics import mean_squared_error, r2_score
 import itertools
-from tensorflow.keras.callbacks import Callback
 from sklearn.metrics import mean_absolute_error
 from sklearn.ensemble import RandomForestRegressor
+from wordcloud import WordCloud, STOPWORDS
+from collections import Counter
+import seaborn as sns
 
 from google.colab import drive
 drive.mount('/content/drive')
@@ -45,14 +47,36 @@ df['price'] = df['price'].apply(lambda x: float(str(x).replace('$', '').replace(
 df['price'].head()
 
 #retira valores muito grandes que tem pouca quantidade
-df_copy = df[df['price'] < 60000].copy()
+df_copy = df[df['price'] < 60000]
 
 n, bins, patches = plt.hist(df_copy['price'], 50, density=True, facecolor='g', alpha=0.75, log = True)
 plt.title("Pricing Distribution")
 plt.xlabel("Price $")
 plt.ylabel("Counts (log)")
 
-print(len(df))
+stopwords = set(STOPWORDS)
+words = df[['property_type']].copy()
+words['property_type'] = words['property_type'].apply(lambda x: x.strip())
+counts = words.property_type.value_counts()
+
+wordcloud = WordCloud(background_color='white',
+                          stopwords=stopwords,
+                          max_words=50,
+                          max_font_size=100
+).generate_from_frequencies(counts)
+
+# plot the WordCloud image
+plt.figure(figsize = (8, 8), facecolor = None)
+plt.imshow(wordcloud, interpolation="bilinear")
+plt.axis("off")
+plt.tight_layout(pad = 0)
+plt.show()
+
+# Group the data frame by property type and extract a number of stats from each group
+df_copy = df[df['price'] < 60000]
+df_copy.groupby(['property_type']).agg({
+    # find the min, max, and sum of the price column
+    'price': ['min', 'max', 'mean', 'count']})
 
 #faz as colunas dos tipos de propriedade ficar numerico
 def tipo_number(df,coluna):
@@ -69,9 +93,7 @@ tipo_number(df,'bed_type')
 
 df[['property_type', 'room_type', 'bed_type']].head()
 
-aa = df.copy
-
-1- Fazer os calculos de review_scores_location com base na localização
+#1- Fazer os calculos de review_scores_location com base na localização
 
 # Função para limpar e formatar os valores
 def trunca(valor):
@@ -110,20 +132,6 @@ imputed_scores = knn_model.predict(df_missing[['latitude', 'longitude']])
 df_copy.loc[df_copy['review_scores_location'].isna(), 'review_scores_location'] = imputed_scores
 
 
-#calcular precisão
-if False:
-  X_train, X_test, y_train, y_test = train_test_split(df_copy[['latitude', 'longitude']], df_copy['review_scores_location'], test_size=0.2, random_state=42)
-
-  imputed_test_scores = knn_model.predict(X_test)
-
-  mse = mean_squared_error(y_test, imputed_test_scores)
-
-  r2 = r2_score(y_test, imputed_test_scores)
-
-  print(f'Mean Squared Error (MSE): {mse}')
-  print(f'R-squared (R²): {r2}')
-
-
 df = df_copy.copy()
 del df_copy
 df['review_scores_location'].head()
@@ -143,7 +151,28 @@ if True:
   plt.title('review_scores_location das coordenadas')
   plt.show()
 
-2 - Corrigir dados do amenities
+#2 - Corrigir dados do amenities
+
+results = Counter()
+df_aux = df.copy()
+df_aux['amenities'].str.strip('{}')\
+               .str.replace('"', '')\
+               .str.lstrip('\"')\
+               .str.rstrip('\"')\
+               .str.split(',')\
+               .apply(results.update)
+
+#results.most_common(20)
+# create a new dataframe
+am_df = pd.DataFrame(results.most_common(20),
+                     columns=['amenity', 'count'])
+
+# plot the Top 20
+am_df.sort_values(by=['count'], ascending=True).plot(kind='barh', x='amenity', y='count',
+                                                      figsize=(10,7), legend=False,
+                                                      width=1.0,align="center",
+                                                      title='Amenities')
+plt.xlabel('Count');
 
 print(df["amenities"].iloc[0])
 
@@ -249,19 +278,7 @@ max_rating = df_copy['price'].max()
 df_copy['price_normal'] = (df_copy['price'] - min_rating) / (max_rating - min_rating)
 
 
-#5 - dummy
-
-if False:
-  colunas_dummy = ["property_type","room_type", "bed_type"]
-
-  df_copy = pd.get_dummies(df_copy, columns=colunas_dummy)
-
-if False:
-  colunas_tipo = list(df_copy.loc[:, 'property_type_0':'bed_type_4'].columns)
-
-  print(colunas_tipo)
-
-5.2 - Arrumar alguns dados
+#5 - Arrumar alguns dados
 
 print(df_copy.isna().sum())
 
@@ -276,12 +293,12 @@ if pode:
   print(percentage_values)
 
 df_selecionado = df_copy.copy()
-
 print(len(df_selecionado))
 
 df_selecionado.describe().transpose()
 
-6 - AI
+
+#6 - AI
 
 Codigo de maior puntuação (Random Forest Regressor) Todos os Valores de 'Price'
 
@@ -335,16 +352,14 @@ if pode:
   pd.options.display.max_rows = None
   valores_acima_limite = percentage_values[percentage_values.values >= limit]
   valores_abaixo_limite = percentage_values[percentage_values.values < limit]
-  print(percentage_values)
 
 #essa parte do codigo retira valores extremos
 #coloca o cara ja com a porcentagem
-df_selecionado = df_copy[df_copy['price'] < 60000]
+df_copy = df_copy[df_copy['price'] < 60000]
 df_selecionado = df_copy[df_copy['price_normal'].isin(valores_acima_limite.index)].copy()
 df_selec_abaixo = df_copy[df_copy['price_normal'].isin(valores_abaixo_limite.index)].copy()
 print(len(df_selecionado))
 
-# @title
 if True:
   from sklearn.model_selection import train_test_split
   from sklearn.ensemble import RandomForestRegressor
