@@ -51,7 +51,7 @@ Nesse projeto iremos analisar os dados dos Airbnb referentes à cidade do Rio de
 
 ### Produzir faltantes na coluna "review_scores_location":
 
-1. Utilizar o modelo KNeighborsRegressor com o K = 2 e com metrica Euclidiana, com objetivo de relacionar as coordenadas proximas e calcular review_scores_location
+1. Utilizar o modelo [KNeighborsRegressor](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/README.md#kneighborsregressor) com o K = 2 e com metrica Euclidiana, com objetivo de relacionar as coordenadas proximas e calcular review_scores_location
 2. Para o validar o K = 2 foi utilizado o Cross-validation gerando o grafico a seguir:
 
 3. Para o validar a metrica Euclidiana foi utilizado o Cross-validation gerando o grafico a seguir:
@@ -62,9 +62,7 @@ Nesse projeto iremos analisar os dados dos Airbnb referentes à cidade do Rio de
 
 Para produzir os valores faltantes na coluna "review_scores_location", várias ideias foram consideradas, incluindo o uso de matrizes, vetorização de pontos e algoritmos gananciosos baseados na métrica euclidiana. No entanto, apenas duas ideias se mostraram relevantes: a utilização de uma KdTree e o modelo KNeighborsRegressor. A implementação da KdTree foi realizada primeiro, mas essa abordagem consumia de 5 a 9 minutos para produzir uma resposta, além de gerar respostas com valores insatisfatórios, com R^2 variando entre 0.7 e 0.8, e o MAE em torno de 200 pontos. Devido a essas métricas, optou-se pela utilização do modelo KNeighborsRegressor, que se mostrou mais eficiente e produziu respostas mais satisfatórias. Grafico gerado usando KdTree:
 
-
-
-
+![Map-KdTree](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/files/graficos/KdTreeMap.jpg)
 
 ## Explicação dos termos usados:
 
