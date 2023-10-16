@@ -37,7 +37,7 @@ Nesse projeto iremos analisar os dados dos Airbnb referentes à cidade do Rio de
 
 ## Implementação:
 
-A implementação do desafio foi separada em partes, já que os dados brutos contém muitos ruidos e informações desnecessarias que podem afetar o calculo e por consequencia a qualidade a da resposta. A implementação teve a seguintes etapas:
+A implementação do desafio foi dividida em várias etapas para lidar com os dados brutos, uma vez que eles contêm muitos ruídos e informações desnecessárias que podem afetar o cálculo e, consequentemente, a qualidade da resposta. As etapas da implementação foram as seguintes:
 
 1. Pre-processamento dos dados;
 2. Limpeza dos dados;
