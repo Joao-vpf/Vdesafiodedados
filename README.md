@@ -60,16 +60,25 @@ Nesse projeto iremos analisar os dados dos Airbnb referentes à cidade do Rio de
 
 #### Extra:
 
-Para produzir os valores faltantes na coluna "review_scores_location", várias ideias foram consideradas, incluindo o uso de matrizes, vetorização de pontos e algoritmos gananciosos baseados na métrica euclidiana. No entanto, apenas duas ideias se mostraram relevantes: a utilização de uma KdTree e o modelo KNeighborsRegressor. A implementação da KdTree foi realizada primeiro, mas essa abordagem consumia de 5 a 9 minutos para produzir uma resposta, além de gerar respostas com valores insatisfatórios, com R^2 variando entre 0.7 e 0.8, e o MAE em torno de 200 pontos. Devido a essas métricas, optou-se pela utilização do modelo KNeighborsRegressor, que se mostrou mais eficiente e produziu respostas mais satisfatórias. Grafico gerado usando KdTree:
+Para produzir os valores faltantes na coluna "review_scores_location", várias ideias foram consideradas, incluindo o uso de matrizes, vetorização de pontos e algoritmos gananciosos baseados na métrica euclidiana. No entanto, apenas duas ideias se mostraram relevantes: a utilização de uma [KdTree](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/README.md#KdTree) e o modelo KNeighborsRegressor. A implementação da KdTree foi realizada primeiro, mas essa abordagem consumia de 5 a 9 minutos para produzir uma resposta, além de gerar respostas com valores insatisfatórios, com R^2 variando entre 0.7 e 0.8, e o MAE em torno de 200 pontos. Devido a essas métricas, optou-se pela utilização do modelo KNeighborsRegressor, que se mostrou mais eficiente e produziu respostas mais satisfatórias. Grafico gerado usando KdTree:
 
 ![Map-KdTree](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/files/graficos/KdTreeMap.jpg)
 
 ## Explicação dos termos usados:
 
-### KdTree: 
-
-
 ### KNeighborsRegressor:
 
 O KNeighborsRegressor é um algoritmo de regressão que faz parte do conjunto de algoritmos de aprendizado de máquina conhecidos como "k-Nearest Neighbors" (KNN) ou "k-Vizinhos Mais Próximos". Ele é usado para realizar tarefas de regressão, onde o objetivo é prever um valor numérico com base em um conjunto de atributos ou características, a ideia básica por trás do KNN é bastante simples, para fazer uma previsão em novo ponto de dados o algoritmo procura os k pontos de dados mais próximos no conjunto de treinamento, com base em alguma medida de distância, como a distância Euclidiana, em seguida, ele calcula a média (ou em alguns casos a mediana) dos valores-alvo desses k pontos mais próximos para fazer a previsão para o novo ponto de dados.
+
+### KdTree: 
+
+Uma árvore k-d (k-dimensional) é uma estrutura de dados usada para particionar espaços multidimensionais em subespaços menores para facilitar a busca eficiente, essa estrutura é especialmente útil em problemas onde você precisa encontrar os vizinhos mais próximos de um ponto em um espaço multidimensional, como é o caso do algoritmo k-Nearest Neighbors (KNN). A árvore k-d é usada para organizar os dados de treinamento de maneira que as consultas para encontrar os vizinhos mais próximos sejam eficientes, o seu funcionamento comença particionando repetidamente o espaço multidimensional ao longo das dimensões alternadas, cada nó da árvore representa um hiperplano que divide o espaço em dois subespaços menores e os pontos de dados são armazenados nas folhas da árvore.
+
+Para realizar uma consulta de "vizinhos mais próximos" usando uma árvore k-d, você percorre a árvore da seguinte maneira:
+
+1. Comece na raiz da árvore.
+2. Compare o ponto de consulta com o hiperplano representado pelo nó atual.
+3. Escolha o subespaço que contém o ponto de consulta com base na comparação.
+4. Recursivamente, continue a busca no subnó que contém o ponto de consulta, até atingir uma folha da árvore.
+5. Na folha, você tem um conjunto de pontos de dados que estão próximos ao ponto de consulta. Você pode calcular as distâncias e encontrar os vizinhos mais próximos.
 
