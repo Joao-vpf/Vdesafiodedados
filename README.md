@@ -32,8 +32,8 @@ O desafio busca promover o trabalho em equipe, analise exploratória de dados, f
 ### Codigo:
 
 [![Static Badge](https://img.shields.io/badge/C%C3%B3digo%20do%20projeto-Link-orange?style=for-the-badge&logo=googlecolab)
-](https://colab.research.google.com/drive/1uCbaxdK39zXcpc2FMXvMa06_0hzMAiBD?usp=sharing)  [![Static Badge](https://img.shields.io/badge/Explica%C3%A7%C3%A3o%20do%20codigo-Link-blue?style=for-the-badge)
-](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/PyReadme)
+](https://colab.research.google.com/drive/1uCbaxdK39zXcpc2FMXvMa06_0hzMAiBD?usp=sharing)  [![Static Badge](https://img.shields.io/badge/Explica%C3%A7%C3%A3o%20completa%20do%20codigo-Link-blue?style=for-the-badge)
+](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/files/Code/explicacao.md)
 
 ## Implementação:
 
