@@ -41,12 +41,14 @@ Nesse projeto iremos analisar os dados dos Airbnb referentes à cidade do Rio de
 
 1. Foram corrigidos latitude e longitude para ficarem formatados como numero.
 
-### Codigo para limpeza dos dados:
+### limpeza dos dados em codigo:
 
 1. Algumas colunas que não foram eliminadas no pré-processamento tiveram que ser deletadas, tais como as colunas "review_scores_cleanliness," "review_scores_checkin," e "review_scores_communication."
 2. Foi aplicada uma conversão geral para tornar os valores numéricos.
-3. Foram removidos símbolos especiais como '$' e ',' das colunas com preços.
-4. As colunas de latitude e longitude foram limpas, removendo símbolos especiais como ',', '.', 'e+' e 'e-'.
+3. Foram removidos símbolos especiais como "$" e "," das colunas com preços.
+4. As colunas de latitude e longitude foram limpas, removendo símbolos especiais como ",", ".", "e+" e "e-".
+
+   
 
 
 
