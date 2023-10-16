@@ -5,6 +5,7 @@ import folium
 from folium.plugins import MarkerCluster
 from geopy.distance import great_circle
 from geopy.distance import geodesic
+from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
 import numpy as np
 import matplotlib.pyplot as plt
@@ -17,30 +18,44 @@ from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 import tensorflow as tf
 from sklearn.metrics import mean_squared_error, r2_score
+import itertools
+from tensorflow.keras.callbacks import Callback
+from sklearn.metrics import mean_absolute_error
+from sklearn.ensemble import RandomForestRegressor
 
-dados = pd.read_excel('drive/MyDrive/Colab Notebooks/total_mod.xlsx')
+from google.colab import drive
+drive.mount('/content/drive')
+
+dados = pd.read_excel('/content/drive/MyDrive/Colab Notebooks/total_mod.xlsx')
+
+print(len(dados))
 
 df = dados.copy() #dados finais apos o processo de limpeza
 df = df.dropna(how='all')# Remove linhas completamente vazias
-df.drop(["review_scores_cleanliness", "review_scores_checkin", "review_scores_communication"], axis=1, inplace=True)#faça o drop dessas colunas
+df.drop(["review_scores_cleanliness", 'review_scores_value','review_scores_rating', 'review_scores_accuracy', "review_scores_checkin", "review_scores_communication","availability_30","availability_60","availability_90","availability_365","extra_people","security_deposit",'weekly_price', 'monthly_price','cleaning_fee','square_feet'], axis=1, inplace=True)#faça o drop dessas colunas
 print(df.isna().sum())
 
-df.columns
+df.dtypes
 
-#tranforma todos valores possiveis em numerico
-df = df.apply(lambda x: pd.to_numeric(x, errors='ignore'))
-df.head()
+df['price'].head()
 
 #corrigir colunas que tem "$" e ","
-for i in range(11, 18):
-    if i != 16:
-        coluna = df.columns[i]
-        df[coluna] = df[coluna].apply(lambda x: float(str(x).replace('$', '').replace(',', '')))
+df['price'] = df['price'].apply(lambda x: float(str(x).replace('$', '').replace(',', '')))
 
-df.head()
+df['price'].head()
+
+#retira valores muito grandes que tem pouca quantidade
+df_copy = df[df['price'] < 60000].copy()
+
+n, bins, patches = plt.hist(df_copy['price'], 50, density=True, facecolor='g', alpha=0.75, log = True)
+plt.title("Pricing Distribution")
+plt.xlabel("Price $")
+plt.ylabel("Counts (log)")
+
+print(len(df))
 
 #faz as colunas dos tipos de propriedade ficar numerico
-def tipo_number(df, coluna):
+def tipo_number(df,coluna):
     #converte n strings em tipos distintos
     valor_unico = df[coluna].unique()
     tipos = {value: i for i, value in enumerate(valor_unico)}
@@ -48,10 +63,15 @@ def tipo_number(df, coluna):
     tipos=0
     valor_unioc=0
 
-tipo_number(df, df.columns[2])
-tipo_number(df, df.columns[3])
-tipo_number(df, df.columns[8])
-df.head()
+tipo_number(df,'property_type')
+tipo_number(df,'room_type')
+tipo_number(df,'bed_type')
+
+df[['property_type', 'room_type', 'bed_type']].head()
+
+aa = df.copy
+
+1- Fazer os calculos de review_scores_location com base na localização
 
 # Função para limpar e formatar os valores
 def trunca(valor):
@@ -70,7 +90,8 @@ df_copy.iloc[:, 1] = df_copy.iloc[:, 1].apply(trunca).astype(float)
 
 df = df_copy.copy()
 df_copy = None
-df.head()
+df[['latitude', 'longitude']].head()
+
 
 from sklearn.neighbors import KNeighborsRegressor
 
@@ -88,6 +109,7 @@ imputed_scores = knn_model.predict(df_missing[['latitude', 'longitude']])
 
 df_copy.loc[df_copy['review_scores_location'].isna(), 'review_scores_location'] = imputed_scores
 
+
 #calcular precisão
 if False:
   X_train, X_test, y_train, y_test = train_test_split(df_copy[['latitude', 'longitude']], df_copy['review_scores_location'], test_size=0.2, random_state=42)
@@ -101,11 +123,12 @@ if False:
   print(f'Mean Squared Error (MSE): {mse}')
   print(f'R-squared (R²): {r2}')
 
+
 df = df_copy.copy()
 del df_copy
-df
+df['review_scores_location'].head()
 
-if False:
+if True:
   # Criar o gráfico de dispersão
   plot_df = df[['latitude', 'longitude', 'review_scores_location']]
 
@@ -120,25 +143,30 @@ if False:
   plt.title('review_scores_location das coordenadas')
   plt.show()
 
+2 - Corrigir dados do amenities
+
 print(df["amenities"].iloc[0])
+
+sinonimo = {
+    "wifi": "internet",
+}
 
 #criar um mapa chave item -> e um pair com vetor de precos e quantidade
 comodidades_dict = {}
 
 for index, row in df.iterrows():
-    comodidades = row['amenities']  
-    price = row['price'] 
-    
-    #dividir a lista
+    comodidades = row['amenities']
+    price = row['price']
+
     comodidades_list = comodidades.split(',')
-    
-    #iterar sobre as comodidades individuais
+
     for comodidade in comodidades_list:
         comodidade = comodidade.strip()  # Remova espaços em branco em excesso
-        comodidade = comodidade.replace('}', '').replace('{', '').replace('-', '').replace('/', '')
+        comodidade = comodidade.replace(' ', '').replace('}', '').replace('{', '').replace('-', '').replace('/', '').replace('"', '').replace("'", '')
         comodidade = comodidade.lower()
-        
-        if any(c.isalpha() for c in comodidade):
+
+        if any(c.isalpha() for c in comodidade) and "translationmissing" not in comodidade:
+            #comodidade = sinonimo.get(comodidade, comodidade)
             if comodidade in comodidades_dict:
                 # Se a comodidade já estiver no dicionário, atualize o vetor de preços e o contador
                 comodidades_dict[comodidade][0].append(price)
@@ -147,23 +175,42 @@ for index, row in df.iterrows():
                 # Se a comodidade não estiver no dicionário, crie uma entrada para ela.
                 comodidades_dict[comodidade] = [[price], 1]
 
-map_preco_normalizado = {}  
-print(len(comodidades_dict)) 
+lista_de_chaves = list(comodidades_dict.keys())
 
-min_preco = min(preco for precos, count in comodidades_dict.values() for preco in precos)
-max_preco = max(preco for precos, count in comodidades_dict.values() for preco in precos)
+print(lista_de_chaves)
 
-for comodidade, (precos, count) in comodidades_dict.items():
-    preco_normalizado = (sum(precos) / count - min_preco) / (max_preco - min_preco)
-    map_preco_normalizado[comodidade] = preco_normalizado
-    print(comodidade, preco_normalizado)
+from sklearn.preprocessing import MinMaxScaler
+
+# Processar os dados em comodidades_dict para calcular os preços médios
+comodidades = []
+precos = []
+
+for comodidade, (precos_raw, quantidade) in comodidades_dict.items():
+    comodidades.append(comodidade)
+    precos.append(sum(precos_raw) / quantidade)
+
+# Normalizar os preços usando a normalização Min-Max
+scaler = MinMaxScaler()
+precos_normalizados = scaler.fit_transform(np.array(precos).reshape(-1, 1)).flatten()  # Correção aqui
+
+# Criar um dicionário que mapeia comodidades para preços normalizados
+map_preco_normalizado = {}
+for i, comodidade in enumerate(comodidades):
+    map_preco_normalizado[comodidade] = precos_normalizados[i]
+
+# Exibir o dicionário
+print(map_preco_normalizado)
+
+sum_precosn = sum(map_preco_normalizado.values())
 
 df_copy = df.copy()
 
 for index, row in df.iterrows():
     comodidades = row['amenities']
     comodidades_list = comodidades.split(',')
-    total_rating = 0
+
+    comodidades_st = set()
+    pesos = []
 
     for comodidade in comodidades_list:
         comodidade = comodidade.strip()
@@ -171,10 +218,169 @@ for index, row in df.iterrows():
         comodidade = comodidade.lower()
 
         if any(c.isalpha() for c in comodidade) and comodidade in map_preco_normalizado:
-            total_rating += map_preco_normalizado[comodidade]
-
-    # Armazena o rating total no DataFrame copiado
-    df_copy.at[index, 'rating_amenities'] = total_rating
+            comodidades_st.add(comodidade)
 
 
-df_copy
+    df_copy.at[index, 'rating_amenities'] = sum(map_preco_normalizado.get(comodidade, 0) for comodidade in comodidades_st)
+
+
+
+
+df = df_copy.copy()
+
+#4 - Normalizar algumas colunas
+
+# Encontre o valor mínimo e máximo na coluna 'rating_amenities'
+min_rating = df_copy['rating_amenities'].min()
+max_rating = df_copy['rating_amenities'].max()
+
+# Aplicar a fórmula de normalização e atualizar a coluna 'rating_amenities'
+df_copy['rating_amenities'] = (df_copy['rating_amenities'] - min_rating) / (max_rating - min_rating)
+
+
+df_copy['rating_amenities'].describe()
+
+
+# Encontre o valor mínimo e máximo na coluna 'rating_amenities'
+min_rating = df_copy['price'].min()
+max_rating = df_copy['price'].max()
+
+# Aplicar a fórmula de normalização e atualizar a coluna 'rating_amenities'
+df_copy['price_normal'] = (df_copy['price'] - min_rating) / (max_rating - min_rating)
+
+
+#5 - dummy
+
+if False:
+  colunas_dummy = ["property_type","room_type", "bed_type"]
+
+  df_copy = pd.get_dummies(df_copy, columns=colunas_dummy)
+
+if False:
+  colunas_tipo = list(df_copy.loc[:, 'property_type_0':'bed_type_4'].columns)
+
+  print(colunas_tipo)
+
+5.2 - Arrumar alguns dados
+
+print(df_copy.isna().sum())
+
+pode = 0
+if pode:
+  #acha a porcentagem que eu quero
+  limit = 0.1
+  percentage_values = df_copy['price_normal'].value_counts(normalize=True) * 100
+  pd.options.display.max_rows = None
+  valores_acima_limite = percentage_values[percentage_values.values >= limit]
+  valores_abaixo_limite = percentage_values[percentage_values.values < limit]
+  print(percentage_values)
+
+df_selecionado = df_copy.copy()
+
+print(len(df_selecionado))
+
+df_selecionado.describe().transpose()
+
+6 - AI
+
+Codigo de maior puntuação (Random Forest Regressor) Todos os Valores de 'Price'
+
+if True:
+  from sklearn.model_selection import train_test_split
+  from sklearn.ensemble import RandomForestRegressor
+
+
+
+  def avaliar_desempenho(df_treinamento):
+      df_treinamento = df_treinamento.dropna()
+
+      X = df_treinamento.drop("price", axis=1)
+      y = df_treinamento["price"]
+
+      X_treino, X_teste, y_treino, y_teste = train_test_split(X, y, test_size=0.2, random_state=42)
+
+      modelo = RandomForestRegressor()
+
+      modelo.fit(X_treino, y_treino)
+
+      previsoes = modelo.predict(X_teste)
+
+      mse = mean_squared_error(y_teste, previsoes)
+      r2 = r2_score(y_teste, previsoes)
+      mae = mean_absolute_error(y_teste, previsoes)
+
+      return mse, r2, mae
+
+
+  colunas_fixas = ["review_scores_location",'latitude','longitude', "rating_amenities", "minimum_nights","price","accommodates","guests_included", 'beds','bedrooms','bathrooms', "maximum_nights",'property_type','room_type','bed_type']
+
+
+  colunas_para_treinamento = colunas_fixas
+
+  df_treinamento = df_selecionado[colunas_para_treinamento]
+
+  mse, r2, mae = avaliar_desempenho(df_treinamento)
+
+  print("Melhor R^2:", r2)
+  print("Melhor MSE:", mse)
+  print("Melhor MAE:", mae)
+
+#Codigo de maior puntuação (Random Forest Regressor) Valores de moiores que 0.1 'Price'
+
+pode = 1
+if pode:
+  #acha a porcentagem que eu quero
+  limit = 0.1
+  percentage_values = df_copy['price_normal'].value_counts(normalize=True) * 100
+  pd.options.display.max_rows = None
+  valores_acima_limite = percentage_values[percentage_values.values >= limit]
+  valores_abaixo_limite = percentage_values[percentage_values.values < limit]
+  print(percentage_values)
+
+#essa parte do codigo retira valores extremos
+#coloca o cara ja com a porcentagem
+df_selecionado = df_copy[df_copy['price'] < 60000]
+df_selecionado = df_copy[df_copy['price_normal'].isin(valores_acima_limite.index)].copy()
+df_selec_abaixo = df_copy[df_copy['price_normal'].isin(valores_abaixo_limite.index)].copy()
+print(len(df_selecionado))
+
+# @title
+if True:
+  from sklearn.model_selection import train_test_split
+  from sklearn.ensemble import RandomForestRegressor
+
+
+
+  def avaliar_desempenho(df_treinamento):
+      df_treinamento = df_treinamento.dropna()
+
+      X = df_treinamento.drop("price", axis=1)
+      y = df_treinamento["price"]
+
+      X_treino, X_teste, y_treino, y_teste = train_test_split(X, y, test_size=0.2, random_state=42)
+
+      modelo = RandomForestRegressor()
+
+      modelo.fit(X_treino, y_treino)
+
+      previsoes = modelo.predict(X_teste)
+
+      mse = mean_squared_error(y_teste, previsoes)
+      r2 = r2_score(y_teste, previsoes)
+      mae = mean_absolute_error(y_teste, previsoes)
+
+      return mse, r2, mae
+
+
+  colunas_fixas = ["review_scores_location",'latitude','longitude', "rating_amenities", "minimum_nights","price","accommodates","guests_included", 'beds','bedrooms','bathrooms', "maximum_nights",'property_type','room_type','bed_type']
+
+
+  colunas_para_treinamento = colunas_fixas
+
+  df_treinamento = df_selecionado[colunas_para_treinamento]
+
+  mse, r2, mae = avaliar_desempenho(df_treinamento)
+
+  print("Melhor R^2:", r2)
+  print("Melhor MSE:", mse)
+  print("Melhor MAE:", mae)
