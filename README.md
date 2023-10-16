@@ -14,7 +14,13 @@
 
 ## Projeto:
 
+### Sobre o desafio:
+
 Nesse projeto iremos analisar os dados dos Airbnb referentes à cidade do Rio de Janeiro e ver quais insights podem ser extraídos a partir desses dados brutos.
+
+### Motivo do desafio:
+
+
 
 ### Dados:
 
