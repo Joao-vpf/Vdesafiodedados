@@ -71,11 +71,11 @@ A implementação do desafio foi dividida em várias etapas para lidar com os da
 3. Para o validar a metrica Euclidiana foi utilizado o Cross-validation gerando o grafico a seguir:
 
 4. A review_scores_location que o modelo KNeighborsRegressor gerou o grafico a seguir:
-
+![KNN-map](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/files/graficos/KNN-map.png)
 #### Extra:
 
 Para produzir os valores faltantes na coluna "review_scores_location", várias ideias foram consideradas, incluindo o uso de matrizes, vetorização de pontos e algoritmos gananciosos baseados na métrica euclidiana. No entanto, apenas duas ideias se mostraram relevantes: a utilização de uma [KdTree](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/README.md#KdTree) e o modelo KNeighborsRegressor. A implementação da KdTree foi realizada primeiro, mas essa abordagem consumia de 5 a 9 minutos para produzir uma resposta, além de gerar respostas com valores insatisfatórios, com R^2 variando entre 0.7 e 0.8, e o MAE em torno de 200 pontos. Devido a essas métricas, optou-se pela utilização do modelo KNeighborsRegressor, que se mostrou mais eficiente e produziu respostas mais satisfatórias. Grafico gerado usando KdTree:
-
+![Kdtreemap](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/files/graficos/KdTreeMap.jpg)
 
 ## Explicação dos termos usados:
 
