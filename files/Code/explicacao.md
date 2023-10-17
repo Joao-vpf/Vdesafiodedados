@@ -124,7 +124,7 @@ print(len(comodidades_dict))
   -map_preco_normalizado = {}: Após a iteração por todas as comodidades das propriedades, o código cria um mapa chamado 'map_preco_normalizado'
   -print(len(comodidades_dict)): Isso exibe o número de comodidades únicas registradas. Cada comodidade única tem uma entrada
 ```
-6-Manipulação da lista comodidades:
+7-Manipulação da lista comodidades:
 ```
   min_preco = min(preco for precos, count in comodidades_dict.values() for preco in precos)
 max_preco = max(preco for precos, count in comodidades_dict.values() for preco in precos)
@@ -178,7 +178,7 @@ df_copy
   -total_rating += map_preco_normalizado[comodidade]: é feito o calculo da classificalção da comodidade
   -df_copy.at[index, 'rating_amenities'] = total_rating: armazena as classificações em df_copy() onde o rating é atribuido a coluna 'rating_amenities'
 ```
-6-Manipulação da lista comodidades:
+8-Manipulação da lista comodidades:
 ```
   min_preco = min(preco for precos, count in comodidades_dict.values() for preco in precos)
 max_preco = max(preco for precos, count in comodidades_dict.values() for preco in precos)
@@ -233,8 +233,7 @@ df_copy
   -df_copy.at[index, 'rating_amenities'] = total_rating: armazena as classificações em df_copy() onde o rating é atribuido a coluna 'rating_amenities'
  ```
 
-
-\\\\\ * corrigir essa parte tem no codigo
+9 - Definir qual ponto dos dados vai ser usado para treinamento
 ```
   pode = 0
 if pode:
@@ -267,7 +266,7 @@ else:
   - df_selec_abaixo = df_copy[df_copy['price_normal'].isin(valores_abaixo_limite.index)].copy(): cria o objeto 'df_selec_abaixo' que recebe os valores do objeto 'valores_abaixo_limite'
 */
 ```
-8-IA
+10 - Modelo RandomForestRegressor para calcular a resposta
 ```
   if True:
   from sklearn.model_selection import train_test_split
@@ -310,3 +309,118 @@ else:
       .modelo = RandomForestRegressor(): cria o modelo de regressão floresta aleatória, o modelo é treinado no conjunto de treinamento e cria previsões no conjunto teste
       .'mse = mean_squared_error(y_teste, previsoes)', 'r2 = r2_score(y_teste, previsoes)', 'mae = mean_absolute_error(y_teste, previsoes)': calculam métricas de avaliação
 ```
+
+
+EXTRAS:
+1 - Validação cruzada para achar o melhor K para o KNeighborsRegressor
+
+```
+#Cross Validation para achar o melhor K
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.neighbors import KNeighborsRegressor
+from sklearn.model_selection import cross_val_score
+
+
+# Separar os dados em faltando e não faltando review_scores_location
+df_missing = df_copy[df_copy['review_scores_location'].isna()]
+df_not_missing = df_copy[~df_copy['review_scores_location'].isna()]
+
+# Definir o intervalo de valores de k a serem testados
+k_range = range(1, 11)
+
+# Função para encontrar o melhor valor de k
+def find_best_k(df, k_range):
+    best_k = None
+    best_score = -np.inf
+
+    for k in k_range:
+        knn_model = KNeighborsRegressor(n_neighbors=k)
+        scores = cross_val_score(knn_model, df[['latitude', 'longitude']], df['review_scores_location'], cv=5)
+        mean_score = np.mean(scores)
+        
+        if mean_score > best_score:
+            best_score = mean_score
+            best_k = k
+
+    return best_k
+
+# Encontre o melhor valor de k usando os dados não faltantes
+best_k = find_best_k(df_not_missing, k_range)
+print(f"Melhor valor de k: {best_k}")
+
+# Crie um gráfico para visualizar a validação cruzada
+mean_scores = []
+
+for k in k_range:
+    knn_model = KNeighborsRegressor(n_neighbors=k)
+    scores = cross_val_score(knn_model, df_not_missing[['latitude', 'longitude']], df_not_missing['review_scores_location'], cv=5)
+    mean_scores.append(np.mean(scores))
+
+plt.figure(figsize=(10, 6))
+plt.plot(k_range, mean_scores, marker='o', linestyle='-')
+plt.title("Validação Cruzada para Encontrar o Melhor Valor de K")
+plt.xlabel("Número de Vizinhos (k)")
+plt.ylabel("Pontuação Média da Validação Cruzada")
+plt.xticks(k_range)
+plt.grid(True)
+plt.show()
+
+```
+
+2 - Validação cruzada para metrica e para o K
+
+```
+from sklearn.model_selection import GridSearchCV
+import matplotlib.pyplot as plt
+
+# Valores de k a serem testados
+param_grid = {
+    'n_neighbors': [1, 2, 3, 4, 5],
+    'p': [1, 2]  # 1 para Manhattan, 2 para Euclidiana
+}
+
+# Criar o modelo k-NN
+knn_model = KNeighborsRegressor()
+
+# Criar um objeto GridSearchCV para realizar a validação cruzada
+grid_search = GridSearchCV(knn_model, param_grid, cv=5, scoring='neg_mean_squared_error')
+
+# Separar as features e o target
+X = df_copy[['latitude', 'longitude']]
+y = df_copy['review_scores_location']
+
+# Realizar a validação cruzada
+grid_search.fit(X, y)
+
+# Obter os resultados da validação cruzada
+results = grid_search.cv_results_
+
+# Extrair os scores negativos médios
+mean_scores = -results['mean_test_score']
+
+# Plotar os resultados
+plt.figure(figsize=(10, 6))
+for p in param_grid['p']:
+    if(p == 1):
+      res = 'Euclidiana'
+    else:
+      res = 'Manhattan'
+    plt.plot(param_grid['n_neighbors'], mean_scores[p - 1::2], label=f'Métrica {res}')
+
+plt.xlabel('Número de Vizinhos (k)')
+plt.ylabel('Erro Quadrático Médio Negativo')
+plt.legend()
+plt.title('Validação Cruzada k-NN')
+plt.show()
+
+# Encontrar os melhores hiperparâmetros
+best_params = grid_search.best_params_
+best_k = best_params['n_neighbors']
+best_metric = 'Manhattan' if best_params['p'] == 1 else 'Euclidiana'
+best_score = -grid_search.best_score_
+
+print(f"Melhores hiperparâmetros: k = {best_k}, Métrica = {best_metric}")
+print(f"Erro Quadrático Médio Negativo Médio: {best_score:.2f}")
+```
+
