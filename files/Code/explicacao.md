@@ -319,6 +319,7 @@ else:
 
 ## EXTRAS:
 
+
 ### 1- Validação cruzada para achar o melhor K para o KNeighborsRegressor
 
 ```
