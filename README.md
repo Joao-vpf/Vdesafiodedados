@@ -111,7 +111,7 @@ Para a análise inicial das comodidades, foram produzidos gráficos das comodida
 ![grafico-amenities](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/files/graficos/amenities.png)
 
 
-Após isso, foram feitas a [normalização] de cada comodidade, criando uma relação de comodidade e o valor normalizado, gerando assim o gráfico a seguir:
+Após isso, foram feitas a [normalização](https://github.com/Joao-vpf/Vdesafiodedados/edit/main/README.md#normaliza%C3%A7%C3%A3o) de cada comodidade, criando uma relação de comodidade e o valor normalizado, gerando assim o gráfico a seguir:
 
 
 ![grafico-amenities-normalizado](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/files/graficos/amenities_normalizado.png)
@@ -222,4 +222,15 @@ Aqui estão algumas das principais características e princípios do RandomFores
 3. Redução de Overfitting: A aleatoriedade introduzida na construção das árvores e na seleção de dados e recursos ajuda a reduzir o overfitting. Cada árvore individual pode estar sujeita a overfitting, mas, quando combinadas, as previsões tendem a ser mais confiáveis e menos suscetíveis a ruído nos dados.
 4. Flexibilidade e Poder Preditivo: O RandomForestRegressor é flexível e pode lidar com uma variedade de tipos de dados e problemas de regressão. Ele é particularmente eficaz quando os dados contêm relações complexas e não lineares.
 
+### Normalização:
 
+A técnica usada para normalização no codigo foi a "Normalização Min-Max", a normalização Min-Max é uma técnica comum em pré-processamento de dados, frequentemente usada para escalar os valores de recursos para um intervalo específico, no caso do do projeto foi de 0 a 1. A ideia algoritmica é a seguinte:
+
+1. Encontre o valor mínimo (min) e máximo (max) dos dados originais.
+2. Aplique a seguinte fórmula para normalizar cada valor no intervalo [0, 1]:
+```
+valor_normalizado = (valor_original - min) / (max - min)
+```
+3. Os valores normalizados agora estão no intervalo [0, 1], onde o valor mínimo original é mapeado para 0, o valor máximo original é mapeado para 1, e os valores intermediários são escalados de acordo.
+
+A normalização Min-Max é útil quando você deseja garantir que os valores de diferentes recursos estejam em uma escala semelhante, o que pode ser importante em algoritmos de aprendizado de máquina que dependem das magnitudes dos recurso, ela também é usada frequentemente em visualizações e análises para facilitar a comparação dos dados.
