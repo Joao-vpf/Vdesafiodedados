@@ -111,7 +111,7 @@ Para a análise inicial das comodidades, foram produzidos gráficos das comodida
 ![grafico-amenities](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/files/graficos/amenities.png)
 
 
-Após isso, foram feitas a [normalização](https://github.com/Joao-vpf/Vdesafiodedados/edit/main/README.md#normaliza%C3%A7%C3%A3o) de cada comodidade, criando uma relação de comodidade e o valor normalizado, gerando assim o gráfico a seguir:
+Após isso, foram feitas a [normalização](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/README.md#normaliza%C3%A7%C3%A3o) de cada comodidade, criando uma relação de comodidade e o valor normalizado, gerando assim o gráfico a seguir:
 
 
 ![grafico-amenities-normalizado](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/files/graficos/amenities_normalizado.png)
