@@ -180,7 +180,7 @@ df_copy
 ```
 8-Manipulação da lista comodidades:
 ```
-  min_preco = min(preco for precos, count in comodidades_dict.values() for preco in precos)
+min_preco = min(preco for precos, count in comodidades_dict.values() for preco in precos)
 max_preco = max(preco for precos, count in comodidades_dict.values() for preco in precos)
 
 for comodidade, (precos, count) in comodidades_dict.items():
@@ -474,3 +474,87 @@ for image_file in image_files:
     os.remove(image_file)
 ```
 
+
+
+4 - Arrumar review_scores_location com KdTREE
+```
+df_copy = df.copy()
+# trocar valores NaN
+def avg_score(row, tree, df_copy, valid_index_means, valid_indices):
+    if math.isnan(row['review_scores_location']):
+        # Consulta as 10 entradas mais próximas com valores de review_scores_location válidos
+        distances, indices = tree.query([row['latitude'], row['longitude']], k=30)
+
+        #busca na hash e coloca apenas os indices reais
+        permitidos = [indice for indice in indices if indice in valid_indices]
+
+        # Verifica se já calculamos a média para esses índices
+        if tuple(permitidos) in valid_index_means:
+            average_score = valid_index_means[tuple(permitidos)]
+        else:
+        #calcula a media caso nao foi calculada
+            average_score = df_copy.loc[permitidos, 'review_scores_location'].mean()
+            valid_index_means[tuple(permitidos)] = average_score
+
+        return average_score
+    else:
+        return row['review_scores_location']
+
+# kdtree
+valid_lat_lon = df_copy.loc[df_copy['review_scores_location'].notna(), ['latitude', 'longitude']]
+tree = cKDTree(valid_lat_lon.values)
+
+# Índices válidos
+valid_indices = df_copy.index
+valid_indices = valid_indices.to_series().to_dict() #cria uma hash dos indices validos
+
+# Dicionário para armazenar médias calculadas
+valid_index_means = {}
+
+# Aplica a função aos dados
+df_copy['review_scores_location'] = df_copy.apply(avg_score, args=(tree, df_copy, valid_index_means, valid_indices), axis=1)
+df_copy['review_scores_location'] = df_copy['review_scores_location'].round(2)
+
+del tree  # Exclui a árvore cKDTree
+
+# Limpa o dicionário valid_index_means
+valid_index_means.clear()
+valid_index_means = None
+
+del valid_indices
+
+df_copy
+
+
+pontos = df_copy[['latitude', 'longitude']].values
+kdtree = cKDTree(pontos)
+
+# Pré-calcule min_score e max_score
+max_score = df_copy['review_scores_location'].max()
+min_score = df_copy['review_scores_location'].min()
+
+def calculate_rating(row):
+    dist, indices = kdtree.query([row['latitude'], row['longitude']], k=5)
+    nearest_scores = df_copy['review_scores_location'].iloc[indices].to_numpy()  
+    normalized_rating = nearest_scores.mean()
+    return (normalized_rating - min_score) / (max_score - min_score) * 10
+
+df_copy['rating'] = df_copy.apply(calculate_rating, axis=1).round(2).clip(lower=0, upper=10)
+
+del kdtree  # Exclui a árvore cKDTree
+df_copy[['latitude', 'longitude', 'review_scores_location', 'rating']]
+
+plot_df = df_copy[['latitude', 'longitude', 'rating']]
+
+colors = ['#941801', '#FC583A',  '#FF7F50', "#fc8f12", "#ffad50" ,"#DBCD02","#f6ff8f", '#dfff8f','#98FB98', '#008000']
+cmap = ListedColormap(colors)
+
+# Criar o gráfico de dispersão
+plt.figure(figsize=(10, 6))
+scatter = plt.scatter(plot_df['longitude'], plot_df['latitude'], c=plot_df['rating'], cmap=cmap, s=10)
+plt.colorbar(scatter, label='Rating')
+plt.xlabel('Longitude')
+plt.ylabel('Latitude')
+plt.title('Rating das coordenadas')
+plt.show()
+```
