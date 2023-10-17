@@ -109,6 +109,15 @@ Para a análise inicial das comodidades, foram produzidos gráficos das comodida
 
 ![grafico-amenities](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/files/graficos/amenities.png)
 
+Após isso, foram feitas a [normalização] de cada comodidade, criando uma relação de comodidade e o valor normalizado, gerando assim o gráfico a seguir:
+
+![grafico-amenities-normalizado]()
+
+E para a conclusão, foi necessário passar novamente em cada item e calcular o somatório dos preços normalizados, gerando assim a coluna "rating_amenities", fazendo referência à qualidade das comodidades, que gerou o gráfico a seguir:
+
+![grafico-amenities-rating]()
+
+
 ### 4. Normalizar colunas:
 
 
