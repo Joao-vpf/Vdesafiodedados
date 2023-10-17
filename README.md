@@ -102,8 +102,9 @@ Para produzir os valores faltantes na coluna "review_scores_location", várias i
 
 ### 3. Completar/corrigir colunas:
 
-1. A coluna amenities:
-Essa coluna foi a mais problemática, já que os dados tinham muito ruído, informações similares e havia muitos dados em cada item. Portanto, a melhor ideia para conseguirmos normalizá-la e criar uma classificação foi salvar comodidade por comodidade e todos os preços em que ela aparecia, gerando o gráfico reduzido a seguir:
+1. A coluna amenities:  
+ A coluna mencionada foi a mais problemática, uma vez que os dados continham muito ruído, informações semelhantes e havia muitos dados em cada item. Portanto, a melhor abordagem para normalizá-la foi salvar todos os tipos diferentes de comodidade e todos os preços das residências em que ela aparecia, com o objetivo de criar um rating que avalie as comodidades de uma residência.  
+Para a análise inicial das comodidades, foram produzidos gráficos das comodidades mais comuns nas residências. Um exemplo de visualização é apresentado abaixo, que representa as 20 comodidades mais populares:
 
 ![grafico-amenities](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/files/graficos/amenities.png)
 
