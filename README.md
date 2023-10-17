@@ -32,7 +32,7 @@ O desafio busca promover o trabalho em equipe, analise exploratória de dados, f
 ### Codigo:
 
 [![Static Badge](https://img.shields.io/badge/C%C3%B3digo%20do%20projeto-Link-orange?style=for-the-badge&logo=googlecolab)
-](https://colab.research.google.com/drive/1uCbaxdK39zXcpc2FMXvMa06_0hzMAiBD?usp=sharing)  [![Static Badge](https://img.shields.io/badge/Explica%C3%A7%C3%A3o%20completa%20do%20codigo-Link-blue?style=for-the-badge)
+](https://colab.research.google.com/drive/1uCbaxdK39zXcpc2FMXvMa06_0hzMAiBD?usp=sharing)  [![Static Badge](https://img.shields.io/badge/todos%20os%20algoritmos%20usados-Link-blue?style=for-the-badge)
 ](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/files/Code/explicacao.md)
 
 ## Implementação:
@@ -43,9 +43,9 @@ A implementação do desafio foi dividida em várias etapas para lidar com os da
 2. Limpeza dos dados;
 3. Completar/corrigir colunas;
 4. Normalizar colunas;
-5. Finalizar/calcular resposta
+5. Finalizar/calcular resposta;
 
-### Pre-processamento dos dados:
+### 1. Pre-processamento dos dados:
 
 1. Foram deletadas todas as colunas que faziam referência ao host do Airbnb, pois o host não possui relação direta com a localização; por exemplo, as colunas de AA a AW foram removidas.
 2. Sumários, descrições, IDs e URLs foram eliminados, uma vez que não afetam o cálculo do preço, mas sim a escolha do cliente.
@@ -56,7 +56,7 @@ A implementação do desafio foi dividida em várias etapas para lidar com os da
 
 1. Foram corrigidos latitude e longitude para ficarem formatados como numero.
 
-### limpeza dos dados em codigo:
+### 2. limpeza dos dados em codigo:
 
 1. Algumas colunas que não foram eliminadas no pré-processamento tiveram que ser deletadas, tais como as colunas "review_scores_cleanliness," "review_scores_checkin," e "review_scores_communication."
 2. Foi aplicada uma conversão geral para tornar os valores numéricos.
@@ -66,19 +66,40 @@ A implementação do desafio foi dividida em várias etapas para lidar com os da
 ### Produzir faltantes na coluna "review_scores_location":
 
 1. Utilizar o modelo [KNeighborsRegressor](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/README.md#kneighborsregressor) com o K = 2 e com metrica Euclidiana, com objetivo de relacionar as coordenadas proximas e calcular review_scores_location
+   
 2. Para o validar o K = 2 foi utilizado o Cross-validation gerando o grafico a seguir:
+   
 ![Melhor K](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/files/graficos/Valor%20de%20K.png)
+
 3. Para o validar a metrica Euclidiana foi utilizado o Cross-validation gerando o grafico a seguir:
+   
 ![Melhor metrica e K](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/files/graficos/Cross-metric-k.png)
 4. A review_scores_location que o modelo KNeighborsRegressor gerou o grafico a seguir:
+   
 ![KNN-map](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/files/graficos/KNN-map.png)
 5. Gif da KNeighborsRegressor construindo o grafico:
+   
 ![GIF-KNN](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/files/graficos/scatter_animation.gif)
 
 #### Extra:
 
 Para produzir os valores faltantes na coluna "review_scores_location", várias ideias foram consideradas, incluindo o uso de matrizes, vetorização de pontos e algoritmos gananciosos baseados na métrica euclidiana. No entanto, apenas duas ideias se mostraram relevantes: a utilização de uma [KdTree](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/README.md#KdTree) e o modelo KNeighborsRegressor. A implementação da KdTree foi realizada primeiro, mas essa abordagem consumia de 5 a 9 minutos para produzir uma resposta, além de gerar respostas com valores insatisfatórios, com R^2 variando entre 0.7 e 0.8, e o MAE em torno de 200 pontos. Devido a essas métricas, optou-se pela utilização do modelo KNeighborsRegressor, que se mostrou mais eficiente e produziu respostas mais satisfatórias. Grafico gerado usando KdTree:
+
 ![Kdtreemap](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/files/graficos/KdTreeMap.jpg)
+
+### 3. Completar/corrigir colunas:
+
+
+
+### 4. Normalizar colunas:
+
+
+
+
+### 5. Finalizar/calcular resposta:
+
+
+
 
 ## Explicação dos termos usados:
 
