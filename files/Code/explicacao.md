@@ -1,11 +1,16 @@
-1- Leitura de dados: <br>
+# Nesse README ficara uma explicação breve de todo o codigo:
+
+## Codigo usado:
+
+### 1- Leitura de dados: 
+
 Lê um arquivo Excel chamado 'total_mod.xlsx' e armazena os em um objeto 'dados'
 ```
     dados = pd.read_excel('drive/MyDrive/Colab Notebooks/total_mod.xlsx'): 
 ```
 
       
-2-Processamento de Dados:
+### 2- Processamento de Dados:
 ```
   df = dados.copy() #dados finais apos o processo de limpeza
   df = df.dropna(how='all')# Remove linhas completamente vazias
@@ -13,7 +18,7 @@ Lê um arquivo Excel chamado 'total_mod.xlsx' e armazena os em um objeto 'dados'
   print(df.isna().sum())
 ```
 
-3-Imputação de Dados Ausentes:
+### 3- Imputação de Dados Ausentes:
 ```
   df_copy = df.copy()
   
@@ -49,7 +54,8 @@ Lê um arquivo Excel chamado 'total_mod.xlsx' e armazena os em um objeto 'dados'
   -df_copy.loc[df_copy['review_scores_location'].isna(), 'review_scores_location'] = imputed_scores: 
       Os valores previstos são inseridos no objeto 'df_copy' preenchendo as linhas onde 'review_scores_location' estava ausente
 ```
-4- Análise e Visualização de Dados:
+### 4- Análise e Visualização de Dados:
+
 ```
     # Criar o gráfico de dispersão
     plot_df = df[['latitude', 'longitude', 'review_scores_location']]
@@ -80,7 +86,8 @@ Lê um arquivo Excel chamado 'total_mod.xlsx' e armazena os em um objeto 'dados'
     -A métrica de erro médio quadrático (MSE) é calculada para avaliar a diferença entre as previsões do modelo e os valores reais
     -Os valores de MSE e R² são impressos na saída para avaliar a precisão do modelo KNN
 ```
-5- Criação da lista comodidades:
+### 5- Criação da lista comodidades:
+
 ```
 comodidades_dict = {}
 
@@ -124,7 +131,7 @@ print(len(comodidades_dict))
   -map_preco_normalizado = {}: Após a iteração por todas as comodidades das propriedades, o código cria um mapa chamado 'map_preco_normalizado'
   -print(len(comodidades_dict)): Isso exibe o número de comodidades únicas registradas. Cada comodidade única tem uma entrada
 ```
-7-Manipulação da lista comodidades:
+### 6- Manipulação da lista comodidades:
 ```
   min_preco = min(preco for precos, count in comodidades_dict.values() for preco in precos)
 max_preco = max(preco for precos, count in comodidades_dict.values() for preco in precos)
@@ -178,7 +185,7 @@ df_copy
   -total_rating += map_preco_normalizado[comodidade]: é feito o calculo da classificalção da comodidade
   -df_copy.at[index, 'rating_amenities'] = total_rating: armazena as classificações em df_copy() onde o rating é atribuido a coluna 'rating_amenities'
 ```
-8-Manipulação da lista comodidades:
+### 7- Manipulação da lista comodidades:
 ```
 min_preco = min(preco for precos, count in comodidades_dict.values() for preco in precos)
 max_preco = max(preco for precos, count in comodidades_dict.values() for preco in precos)
@@ -233,7 +240,7 @@ df_copy
   -df_copy.at[index, 'rating_amenities'] = total_rating: armazena as classificações em df_copy() onde o rating é atribuido a coluna 'rating_amenities'
  ```
 
-9 - Definir qual ponto dos dados vai ser usado para treinamento
+### 8- Definir qual ponto dos dados vai ser usado para treinamento
 ```
   pode = 0
 if pode:
@@ -266,7 +273,7 @@ else:
   - df_selec_abaixo = df_copy[df_copy['price_normal'].isin(valores_abaixo_limite.index)].copy(): cria o objeto 'df_selec_abaixo' que recebe os valores do objeto 'valores_abaixo_limite'
 */
 ```
-10 - Modelo RandomForestRegressor para calcular a resposta
+### 9- Modelo RandomForestRegressor para calcular a resposta
 ```
   if True:
   from sklearn.model_selection import train_test_split
@@ -310,9 +317,9 @@ else:
       .'mse = mean_squared_error(y_teste, previsoes)', 'r2 = r2_score(y_teste, previsoes)', 'mae = mean_absolute_error(y_teste, previsoes)': calculam métricas de avaliação
 ```
 
+## EXTRAS:
 
-EXTRAS:
-1 - Validação cruzada para achar o melhor K para o KNeighborsRegressor
+### 1- Validação cruzada para achar o melhor K para o KNeighborsRegressor
 
 ```
 #Cross Validation para achar o melhor K
@@ -368,7 +375,7 @@ plt.show()
 
 ```
 
-2 - Validação cruzada para metrica e para o K
+### 2- Validação cruzada para metrica e para o K
 
 ```
 from sklearn.model_selection import GridSearchCV
@@ -424,7 +431,7 @@ print(f"Melhores hiperparâmetros: k = {best_k}, Métrica = {best_metric}")
 print(f"Erro Quadrático Médio Negativo Médio: {best_score:.2f}")
 ```
 
-3 - Criar gif
+### 3- Criar gif
 
 ```
 import matplotlib.pyplot as plt
@@ -476,7 +483,7 @@ for image_file in image_files:
 
 
 
-4 - Arrumar review_scores_location com KdTREE
+### 4- Arrumar review_scores_location com KdTREE
 ```
 df_copy = df.copy()
 # trocar valores NaN
