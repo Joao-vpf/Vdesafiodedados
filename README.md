@@ -74,7 +74,9 @@ A implementação do desafio foi dividida em várias etapas para lidar com os da
 3. Foram removidos símbolos especiais como "$" e "," das colunas com preços.
 4. Limpar colunas de latitude e longitude removendo símbolos especiais como ",", ".", "e+" e "e-", além disso truncar para 10 digitos (quantidade correta para uma boa precisão).
 
-### Produzir faltantes na coluna "review_scores_location":
+### 3. Completar/corrigir colunas:
+
+#### A) Produzir faltantes na coluna "review_scores_location":
 
 1. Utilizar o modelo [KNeighborsRegressor](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/README.md#kneighborsregressor) com o K = 2 e com metrica Euclidiana, com objetivo de relacionar as coordenadas proximas e calcular review_scores_location
    
@@ -94,15 +96,14 @@ A implementação do desafio foi dividida em várias etapas para lidar com os da
    
 ![GIF-KNN](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/files/graficos/scatter_animation.gif)
 
-#### Extra:
+##### Extra:
 
 Para produzir os valores faltantes na coluna "review_scores_location", várias ideias foram consideradas, incluindo o uso de matrizes, vetorização de pontos e algoritmos gananciosos baseados na métrica euclidiana. No entanto, apenas duas ideias se mostraram relevantes: a utilização de uma [KdTree](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/README.md#KdTree) e o modelo KNeighborsRegressor. A [implementação da KdTree](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/files/Code/explicacao.md#4--arrumar-review_scores_location-com-kdtree) foi realizada primeiro, mas essa abordagem consumia de 5 a 9 minutos para produzir uma resposta, além de gerar respostas com valores insatisfatórios, com R^2 variando entre 0.7 e 0.8, e o MAE em torno de 200 pontos. Devido a essas métricas, optou-se pela utilização do modelo KNeighborsRegressor, que se mostrou mais eficiente e produziu respostas mais satisfatórias. Grafico gerado usando KdTree:
 
 ![Kdtreemap](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/files/graficos/kdtreemap.png)
 
-### 3. Completar/corrigir colunas:
 
-#### 1. A coluna amenities:
+#### B) Coluna amenities:
 
 A coluna mencionada foi a mais problemática, uma vez que os dados continham muito ruído, informações semelhantes e havia muitos dados em cada item. Portanto, a melhor abordagem para normalizá-la foi salvar todos os tipos diferentes de comodidade e todos os preços das residências em que ela aparecia, com o objetivo de criar um rating que avalie as comodidades de uma residência.  
 Para a análise inicial das comodidades, foram produzidos gráficos das comodidades mais comuns nas residências. Um exemplo de visualização é apresentado abaixo, que representa as 20 comodidades mais populares:
@@ -127,9 +128,11 @@ E para a conclusão, foi necessário passar novamente em cada item e calcular o 
 É possivel notar que os maiores preços não necessáriamente são os que tem maiores ratings já que dependem de outros fatores para ter o maior preço.
 
 
-### 4. Normalizar colunas:
+### 4. [Normalizar](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/README.md#normaliza%C3%A7%C3%A3o) colunas:
 
+Os dados foram normalizados usando a técnica "MIN-MAX" em duas colunas principais: "rating_amenities" e "price". A coluna "rating_amenities" foi normalizada para facilitar a identificação da qualidade daquela informação e sua importância nos cálculos no modelo usado. A coluna "price" foi normalizada para testes e visualização, com o objetivo de determinar a porcentagem que cada valor refletia no total, criando assim a coluna "price_normal". Como não houve diferenças entre a quantidade de elementos e sim na escala aqui esta um grafico das comodidades mostrando a diferença entre as escalas da coluna "rating_amenities" como exemplo:
 
+![diferencaamenities](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/files/graficos/diferen%C3%A7asamenities.png) 
 
 ### 5. Finalizar/calcular resposta:
 
@@ -174,7 +177,7 @@ Na primeira análise, utilizando todos os valores da coluna "price," o modelo ap
 
 Esses resultados indicam que o modelo teve um desempenho notável. O R² de 0.93 sugere que o modelo é capaz de explicar aproximadamente 93% da variabilidade dos preços, o que é uma precisão significativa. Além disso o MAE de 50.45 são indicativos de que o modelo, em média, erra os preços em cerca de 50R$.
 
-**Segunda Análise: Utilização de Valores da Coluna "price" Sem Valores Extremos**
+#### **Segunda Análise: Utilização de Valores da Coluna "price" Sem Valores Extremos**
 
 Na segunda análise, retirando valores extremos da coluna "price," o modelo apresentou os seguintes resultados:
 
