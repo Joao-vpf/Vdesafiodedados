@@ -107,15 +107,24 @@ Para produzir os valores faltantes na coluna "review_scores_location", várias i
 A coluna mencionada foi a mais problemática, uma vez que os dados continham muito ruído, informações semelhantes e havia muitos dados em cada item. Portanto, a melhor abordagem para normalizá-la foi salvar todos os tipos diferentes de comodidade e todos os preços das residências em que ela aparecia, com o objetivo de criar um rating que avalie as comodidades de uma residência.  
 Para a análise inicial das comodidades, foram produzidos gráficos das comodidades mais comuns nas residências. Um exemplo de visualização é apresentado abaixo, que representa as 20 comodidades mais populares:
 
+
 ![grafico-amenities](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/files/graficos/amenities.png)
+
 
 Após isso, foram feitas a [normalização] de cada comodidade, criando uma relação de comodidade e o valor normalizado, gerando assim o gráfico a seguir:
 
-![grafico-amenities-normalizado]()
+
+![grafico-amenities-normalizado](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/files/graficos/amenities_normalizado.png)
+
 
 E para a conclusão, foi necessário passar novamente em cada item e calcular o somatório dos preços normalizados, gerando assim a coluna "rating_amenities", fazendo referência à qualidade das comodidades, que gerou o gráfico a seguir:
 
-![grafico-amenities-rating]()
+
+![grafico-amenities-rating](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/files/graficos/ratingxprice.png)
+
+
+##### Observação sobre o gráfico acima:
+É possivel notar que os maiores preços não necessáriamente são os que tem maiores ratings já que dependem de outros fatores para ter o maior preço.
 
 
 ### 4. Normalizar colunas:
