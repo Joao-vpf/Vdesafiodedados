@@ -424,3 +424,53 @@ print(f"Melhores hiperparâmetros: k = {best_k}, Métrica = {best_metric}")
 print(f"Erro Quadrático Médio Negativo Médio: {best_score:.2f}")
 ```
 
+3 - Criar gif
+
+```
+import matplotlib.pyplot as plt
+import os
+from matplotlib.colors import ListedColormap
+from PIL import Image
+
+# gif
+plot_df = df[['latitude', 'longitude', 'review_scores_location']].copy()
+
+colors = ['#941801', '#FC583A',  '#FF7F50', "#fc8f12", "#ffad50", "#DBCD02", "#f6ff8f", '#dfff8f', '#98FB98', '#008000']
+cmap = ListedColormap(colors)
+# Divida os dados em lotes de 3000 pontos
+batch_size = 10000
+num_batches = len(plot_df)
+# Calcule o número de repetições com base na divisão em lotes
+repetitions = num_batches // batch_size
+
+# Criar uma lista para armazenar os nomes dos arquivos de imagem
+image_files = []
+
+for i in range(repetitions):
+    fig, ax = plt.subplots(figsize=(10, 6))
+    start_idx = i * batch_size
+    end_idx = min((i + 1) * batch_size, len(plot_df))
+    batch_df = plot_df.iloc[:end_idx]
+
+    scatter = ax.scatter(batch_df['longitude'], batch_df['latitude'], c=batch_df['review_scores_location'], cmap=cmap, s=4)
+    plt.colorbar(scatter, ax=ax, label='review_scores_location')
+    ax.set_xlabel('Longitude')
+    ax.set_ylabel('Latitude')
+    ax.set_title(f'Pontos de rating')
+
+    # Salvar o gráfico como uma imagem
+    image_file = f'batch_{i}.png'
+    image_files.append(image_file)
+    plt.savefig(image_file, dpi=300)  # Salvar a imagem com alta resolução
+
+    plt.close(fig)  # Fechar a figura após salvar
+
+# Criar o GIF animado a partir das imagens com o número de repetições calculado
+images = [Image.open(image_file) for image_file in image_files]
+images[0].save('scatter_animation.gif', save_all=True, append_images=images[1:], duration=100, loop=repetitions)
+
+# Remover os arquivos de imagem após criar o GIF
+for image_file in image_files:
+    os.remove(image_file)
+```
+
