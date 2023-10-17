@@ -177,7 +177,7 @@ Na primeira análise, utilizando todos os valores da coluna "price," o modelo ap
 
 Esses resultados indicam que o modelo teve um desempenho notável. O R² de 0.93 sugere que o modelo é capaz de explicar aproximadamente 93% da variabilidade dos preços, o que é uma precisão significativa. Além disso o MAE de 50.45 são indicativos de que o modelo, em média, erra os preços em cerca de 50R$.
 
-#### **Segunda Análise: Utilização de Valores da Coluna "price" Sem Valores Extremos**
+#### Segunda Análise: Utilização de Valores da Coluna "price" Sem Valores Extremos
 
 Na segunda análise, retirando valores extremos da coluna "price," o modelo apresentou os seguintes resultados:
 
