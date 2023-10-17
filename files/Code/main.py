@@ -298,7 +298,7 @@ print(len(df_selecionado))
 df_selecionado.describe().transpose()
 
 
-#6 - AI
+#6 - Implementação
 
 Codigo de maior puntuação (Random Forest Regressor) Todos os Valores de 'Price'
 
