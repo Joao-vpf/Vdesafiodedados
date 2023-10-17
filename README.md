@@ -159,13 +159,13 @@ Essa seleção foi baseada na ideia de que, com essas variáveis, conseguiríamo
 
 #### Seleção de Abordagem e Método:
 
-Em nossa pesquisa em busca de métodos para a solução do projeto, passamos por diversos tipos, como Regressão Linear (clássica), Regressão de Árvore de Decisão, Gradient Boosting, entre outros. Após vários testes e uma pesquisa intensa, optamos por utilizar o **Random Forest Regressor**.
+Em nossa pesquisa em busca de métodos para a solução do projeto, passamos por diversos tipos, como Regressão Linear (clássica), Regressão de Árvore de Decisão, Gradient Boosting, entre outros. Após vários testes e uma pesquisa intensa, optamos por utilizar o [**Random Forest Regressor**](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/README.md#randomforestregressor).
 
-Essa escolha foi baseada na boa consistência demonstrada em diferentes testes e, principalmente, na capacidade de alcançar resultados bastante precisos na predição dos preços. O algoritmo **Random Forest Regressor** é uma escolha sólida para esse tipo de tarefa de previsão de preços devido à sua capacidade de lidar com dados complexos e variáveis independentes.
+Essa escolha foi baseada na boa consistência demonstrada em diferentes testes e, principalmente, na capacidade de alcançar resultados bastante precisos na predição dos preços. O algoritmo [**Random Forest Regressor**](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/README.md#randomforestregressor) é uma escolha sólida para esse tipo de tarefa de previsão de preços devido à sua capacidade de lidar com dados complexos e variáveis independentes.
 
 #### Avaliação da Precisão e Confiança:
 
-Após a aplicação do método **Random Forest Regressor**, observamos resultados bastante satisfatórios que nos fornecem insights valiosos sobre a capacidade do modelo de previsão de preços. Vamos analisar e interpretar os resultados obtidos em duas abordagens diferentes.
+Após a aplicação do método [**Random Forest Regressor**](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/README.md#randomforestregressor), observamos resultados bastante satisfatórios que nos fornecem insights valiosos sobre a capacidade do modelo de previsão de preços. Vamos analisar e interpretar os resultados obtidos em duas abordagens diferentes.
 
 **Primeira Análise: Utilização de Todos os Valores da Coluna "price"**
 
@@ -191,7 +191,7 @@ Esses valores indicam que o modelo é altamente capaz de prever os preços com g
 
 #### Conclusão e Implicações Práticas:
 
-Com base nas análises, podemos concluir que o modelo **Random Forest Regressor** é altamente eficaz na previsão de preços no mercado de hospedagem virtual. Seus resultados sugerem que é capaz de fornecer previsões precisas, com uma capacidade notável de explicar a variação dos preços.
+Com base nas análises, podemos concluir que o modelo [**Random Forest Regressor**](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/README.md#randomforestregressor) é altamente eficaz na previsão de preços no mercado de hospedagem virtual. Seus resultados sugerem que é capaz de fornecer previsões precisas, com uma capacidade notável de explicar a variação dos preços.
 
 Essa precisão é crucial para o mercado de hospedagem virtual, onde pequenas diferenças de preço podem influenciar significativamente as decisões dos clientes. Com um erro absoluto médio de apenas 16R$, o modelo é uma ferramenta valiosa para empresas de hospedagem virtual, permitindo ajustar estratégias de preços com base em previsões altamente confiáveis.
 
