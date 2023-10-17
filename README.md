@@ -133,7 +133,66 @@ E para a conclusão, foi necessário passar novamente em cada item e calcular o 
 
 ### 5. Finalizar/calcular resposta:
 
+#### Revisão de Dados e Análises Anteriores:  
 
+Após a análise exploratória e a normalização das colunas, chegamos ao consenso de que as melhores colunas a serem consideradas são:
+- "review_scores_location"
+- "latitude"
+- "longitude"
+- "rating_amenities"
+- "minimum_nights"
+- "price"
+- "accommodates"
+- "guests_included"
+- "beds"
+- "bedrooms"
+- "bathrooms"
+- "maximum_nights"
+- "property_type"
+- "room_type"
+- "bed_type"
+  
+Essa seleção foi baseada na ideia de que, com essas variáveis, conseguiríamos explorar todos os aspectos relevantes de uma residência em busca de nos aproximarmos do valor ideal da predição de preços. Essas colunas abrangem tanto características das acomodações quanto informações geográficas, o que é fundamental para a qualidade do modelo de previsão.
+
+#### Seleção de Abordagem e Método:
+
+Em nossa pesquisa em busca de métodos para a solução do projeto, passamos por diversos tipos, como Regressão Linear (clássica), Regressão de Árvore de Decisão, Gradient Boosting, entre outros. Após vários testes e uma pesquisa intensa, optamos por utilizar o **Random Forest Regressor**.
+
+Essa escolha foi baseada na boa consistência demonstrada em diferentes testes e, principalmente, na capacidade de alcançar resultados bastante precisos na predição dos preços. O algoritmo **Random Forest Regressor** é uma escolha sólida para esse tipo de tarefa de previsão de preços devido à sua capacidade de lidar com dados complexos e variáveis independentes.
+
+#### Avaliação da Precisão e Confiança:
+
+Após a aplicação do método **Random Forest Regressor**, observamos resultados bastante satisfatórios que nos fornecem insights valiosos sobre a capacidade do modelo de previsão de preços. Vamos analisar e interpretar os resultados obtidos em duas abordagens diferentes.
+
+**Primeira Análise: Utilização de Todos os Valores da Coluna "price"**
+
+Na primeira análise, utilizando todos os valores da coluna "price," o modelo apresentou os seguintes resultados:
+
+- R²: 0.93
+- MSE (Erro Quadrático Médio): 220543.90
+- MAE (Erro Absoluto Médio): 50.45
+
+Esses resultados indicam que o modelo teve um desempenho notável. O R² de 0.93 sugere que o modelo é capaz de explicar aproximadamente 93% da variabilidade dos preços, o que é uma precisão significativa. Além disso o MAE de 50.45 são indicativos de que o modelo, em média, erra os preços em cerca de 50R$.
+
+**Segunda Análise: Utilização de Valores da Coluna "price" Sem Valores Extremos**
+
+Na segunda análise, retirando valores extremos da coluna "price," o modelo apresentou os seguintes resultados:
+
+- R²: 0.97
+- MSE (Erro Quadrático Médio): 3936.00
+- MAE (Erro Absoluto Médio): 15.93
+
+Os resultados desta segunda análise são ainda mais impressionantes. O R² de 0.97 reflete uma precisão notável, indicando que o modelo é capaz de explicar aproximadamente 97% da variabilidade dos preços. Além disso, o MAE de 15.93 demonstram que, em média, o modelo erra os preços em apenas 16R$. 
+
+Esses valores indicam que o modelo é altamente capaz de prever os preços com grande precisão, o que é significativo e valioso para o problema em questão.
+
+#### Conclusão e Implicações Práticas:
+
+Com base nas análises, podemos concluir que o modelo **Random Forest Regressor** é altamente eficaz na previsão de preços no mercado de hospedagem virtual. Seus resultados sugerem que é capaz de fornecer previsões precisas, com uma capacidade notável de explicar a variação dos preços.
+
+Essa precisão é crucial para o mercado de hospedagem virtual, onde pequenas diferenças de preço podem influenciar significativamente as decisões dos clientes. Com um erro absoluto médio de apenas 16R$, o modelo é uma ferramenta valiosa para empresas de hospedagem virtual, permitindo ajustar estratégias de preços com base em previsões altamente confiáveis.
+
+Esses resultados também destacam a importância de pré-processar os dados e remover valores extremos, o que pode melhorar significativamente a precisão do modelo. No entanto, é importante manter a vigilância contínua do desempenho do modelo e realizar atualizações conforme necessário para garantir que ele continue sendo uma ferramenta eficaz no mercado em constante mudança.
 
 ## Explicação dos termos usados:
 
@@ -152,4 +211,15 @@ Para realizar uma consulta de "vizinhos mais próximos" usando uma árvore k-d, 
 3. Escolha o subespaço que contém o ponto de consulta com base na comparação.
 4. Recursivamente, continue a busca no subnó que contém o ponto de consulta, até atingir uma folha da árvore.
 5. Na folha, você tem um conjunto de pontos de dados que estão próximos ao ponto de consulta. Você pode calcular as distâncias e encontrar os vizinhos mais próximos.
+
+### RandomForestRegressor:
+
+O RandomForestRegressor é um algoritmo de regressão que faz parte da família de métodos de ensemble. Ele se baseia na construção de múltiplas árvores de decisão para criar previsões mais precisas e robustas. Este algoritmo é uma extensão do RandomForestClassifier, que é amplamente utilizado em problemas de classificação.
+
+Aqui estão algumas das principais características e princípios do RandomForestRegressor:
+1. Ensemble de Árvores de Decisão: O algoritmo cria um conjunto (ensemble) de árvores de decisão. Cada árvore é treinada com uma amostra aleatória dos dados e/ou um subconjunto aleatório de recursos. Essa aleatoriedade na seleção de dados e características ajuda a evitar o overfitting, tornando o modelo mais geral.
+2. Agregação de Previsões: Para fazer uma previsão, o RandomForestRegressor agrega as previsões de todas as árvores no conjunto. Normalmente, a média das previsões é usada como a previsão final. Essa abordagem de agregação ajuda a reduzir a variância e a melhorar a estabilidade do modelo, tornando as previsões mais robustas.
+3. Redução de Overfitting: A aleatoriedade introduzida na construção das árvores e na seleção de dados e recursos ajuda a reduzir o overfitting. Cada árvore individual pode estar sujeita a overfitting, mas, quando combinadas, as previsões tendem a ser mais confiáveis e menos suscetíveis a ruído nos dados.
+4. Flexibilidade e Poder Preditivo: O RandomForestRegressor é flexível e pode lidar com uma variedade de tipos de dados e problemas de regressão. Ele é particularmente eficaz quando os dados contêm relações complexas e não lineares.
+
 
