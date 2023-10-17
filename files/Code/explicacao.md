@@ -566,3 +566,49 @@ plt.ylabel('Latitude')
 plt.title('Rating das coordenadas')
 plt.show()
 ```
+
+### 5- Gerar mapa
+```
+if True:
+
+  def color(rating):
+      rating = int(rating)
+      if rating < 20:
+          return "red"
+      if rating < 50:
+          return "orange"
+      if rating < 80:
+          return "yellow"
+      return "green"
+
+  df['review_scores_location'] = pd.to_numeric(df['review_scores_location'], errors='coerce')
+  # Filtra e seleciona as colunas relevantes
+  df = df.dropna(subset=["longitude", "latitude", "review_scores_location"])
+  df = df[["latitude", "longitude", "review_scores_location"]]
+
+  # Calcula as cores com base na pontuação
+  df["color"] = df["review_scores_location"].apply(color)
+
+  # Cria um mapa
+  m = folium.Map(location=[df['latitude'].mean(), df['longitude'].mean()], zoom_start=10)
+
+  # Crie um cluster de marcadores
+  marker_cluster = MarkerCluster().add_to(m)
+
+  # preencha o cluster
+  for index, row in df.iterrows():
+      folium.CircleMarker(
+          location=[row['latitude'], row['longitude']],
+          color=row['color'],
+          fill=True,
+          radius=5,
+          popup=f'Review Score: {int(row["review_scores_location"])}'
+      ).add_to(marker_cluster)
+
+  m.save('mapa_rating.html')
+print(len(df))
+df
+```
+
+
+
