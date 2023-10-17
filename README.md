@@ -16,11 +16,22 @@
 
 ### Sobre o desafio:
 
-Nesse projeto iremos analisar os dados dos Airbnb referentes à cidade do Rio de Janeiro e ver quais insights podem ser extraídos a partir desses dados brutos.
+O mercado de hospedagem virtual, também conhecido como hosting, é uma indústria em constante crescimento, com uma ampla gama de serviços oferecidos por inúmeras empresas. A competitividade nesse setor é intensa, com empresas frequentemente ajustando seus preços para atrair e reter clientes. Nesse contexto, iremos analisar os dados do Airbnb referentes à cidade do Rio de Janeiro e ver quais insights podem ser extraídos a partir desses dados brutos. A previsão de preços desempenha um papel crucial para as empresas que desejam permanecer competitivas. O problema abordado neste projeto é o desenvolvimento de um modelo de previsão de preços para o mercado de hospedagem virtual.
 
 ### Motivo do desafio:
 
-O desafio busca promover o trabalho em equipe, analise exploratória de dados, filtragem de dados, modelagem e algoritmos, aprendizado de linguagens de programação, machine learning e raciocínio lógico buscando analisar os dados.
+O desafio busca promover o trabalho em equipe, análise exploratória de dados, filtragem de dados, modelagem e algoritmos, aprendizado de linguagens de programação, machine learning e raciocínio lógico, com o objetivo de analisar os dados.
+
+O escopo deste projeto envolve a criação de um modelo de previsão de preços no mercado de hospedagem virtual. Especificamente, o projeto visa:
+
+1. **Limpeza e Pré-processamento de Dados:** Realizar a limpeza e pré-processamento dos dados, incluindo o tratamento de valores ausentes, a codificação de variáveis categóricas e a normalização, quando necessário.
+
+2. **Análise Exploratória de Dados:** Realizar uma análise exploratória para entender a distribuição dos preços, identificar tendências sazonais e correlações entre os diferentes atributos e os preços.
+
+3. **Desenvolvimento do Modelo de Previsão:** Selecionar e desenvolver um modelo de previsão apropriado para estimar os preços no mercado de hospedagem virtual. Isso pode envolver o uso de técnicas de aprendizado de máquina, como regressão, séries temporais ou algoritmos de análise de texto, dependendo da natureza dos dados.
+
+4. **Treinamento e Avaliação do Modelo:** Treinar o modelo com dados históricos e avaliá-lo usando métricas adequadas, como erro médio absoluto (MAE), erro médio quadrático (MSE) ou R².
+
 
 ### Dados:
 
