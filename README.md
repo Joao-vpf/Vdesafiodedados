@@ -94,7 +94,7 @@ Para produzir os valores faltantes na coluna "review_scores_location", várias i
 1. A coluna amenities:
 Essa coluna foi a mais problemática, já que os dados tinham muito ruído, informações similares e havia muitos dados em cada item. Portanto, a melhor ideia para conseguirmos normalizá-la e criar uma classificação foi salvar comodidade por comodidade e todos os preços em que ela aparecia, gerando o gráfico reduzido a seguir:
 
-![grafico-amenities]()
+![grafico-amenities](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/files/graficos/amenities.png)
 
 ### 4. Normalizar colunas:
 
