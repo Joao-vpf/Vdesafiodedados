@@ -69,10 +69,11 @@ A implementação do desafio foi dividida em várias etapas para lidar com os da
 2. Para o validar o K = 2 foi utilizado o Cross-validation gerando o grafico a seguir:
 ![Melhor K](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/files/graficos/Valor%20de%20K.png)
 3. Para o validar a metrica Euclidiana foi utilizado o Cross-validation gerando o grafico a seguir:
-
+![Melhor metrica e K](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/files/graficos/Cross-metric-k.png)
 4. A review_scores_location que o modelo KNeighborsRegressor gerou o grafico a seguir:
 ![KNN-map](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/files/graficos/KNN-map.png)
-
+5. Gif da KNeighborsRegressor construindo o grafico:
+![GIF-KNN](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/files/graficos/scatter_animation.gif)
 
 #### Extra:
 
