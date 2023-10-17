@@ -74,30 +74,33 @@ A implementação do desafio foi dividida em várias etapas para lidar com os da
 3. Para o validar a metrica Euclidiana foi utilizado o Cross-validation gerando o grafico a seguir:
    
 ![Melhor metrica e K](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/files/graficos/Cross-metric-k.png)
+
 4. A review_scores_location que o modelo KNeighborsRegressor gerou o grafico a seguir:
    
 ![KNN-map](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/files/graficos/KNN-map.png)
+
 5. Gif da KNeighborsRegressor construindo o grafico:
    
 ![GIF-KNN](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/files/graficos/scatter_animation.gif)
 
 #### Extra:
 
-Para produzir os valores faltantes na coluna "review_scores_location", várias ideias foram consideradas, incluindo o uso de matrizes, vetorização de pontos e algoritmos gananciosos baseados na métrica euclidiana. No entanto, apenas duas ideias se mostraram relevantes: a utilização de uma [KdTree](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/README.md#KdTree) e o modelo KNeighborsRegressor. A implementação da KdTree foi realizada primeiro, mas essa abordagem consumia de 5 a 9 minutos para produzir uma resposta, além de gerar respostas com valores insatisfatórios, com R^2 variando entre 0.7 e 0.8, e o MAE em torno de 200 pontos. Devido a essas métricas, optou-se pela utilização do modelo KNeighborsRegressor, que se mostrou mais eficiente e produziu respostas mais satisfatórias. Grafico gerado usando KdTree:
+Para produzir os valores faltantes na coluna "review_scores_location", várias ideias foram consideradas, incluindo o uso de matrizes, vetorização de pontos e algoritmos gananciosos baseados na métrica euclidiana. No entanto, apenas duas ideias se mostraram relevantes: a utilização de uma [KdTree](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/README.md#KdTree) e o modelo KNeighborsRegressor. A [implementação da KdTree](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/files/Code/explicacao.md#4--arrumar-review_scores_location-com-kdtree) foi realizada primeiro, mas essa abordagem consumia de 5 a 9 minutos para produzir uma resposta, além de gerar respostas com valores insatisfatórios, com R^2 variando entre 0.7 e 0.8, e o MAE em torno de 200 pontos. Devido a essas métricas, optou-se pela utilização do modelo KNeighborsRegressor, que se mostrou mais eficiente e produziu respostas mais satisfatórias. Grafico gerado usando KdTree:
 
-![Kdtreemap](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/files/graficos/KdTreeMap.jpg)
+![Kdtreemap](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/files/graficos/kdtreemap.png)
 
 ### 3. Completar/corrigir colunas:
 
+1. A coluna amenities:
+Essa coluna foi a mais problemática, já que os dados tinham muito ruído, informações similares e havia muitos dados em cada item. Portanto, a melhor ideia para conseguirmos normalizá-la e criar uma classificação foi salvar comodidade por comodidade e todos os preços em que ela aparecia, gerando o gráfico reduzido a seguir:
 
+![grafico-amenities]()
 
 ### 4. Normalizar colunas:
 
 
 
-
 ### 5. Finalizar/calcular resposta:
-
 
 
 
