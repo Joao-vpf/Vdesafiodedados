@@ -225,6 +225,8 @@ Aqui estão algumas das principais características e princípios do RandomFores
 3. Redução de Overfitting: A aleatoriedade introduzida na construção das árvores e na seleção de dados e recursos ajuda a reduzir o overfitting. Cada árvore individual pode estar sujeita a overfitting, mas, quando combinadas, as previsões tendem a ser mais confiáveis e menos suscetíveis a ruído nos dados.
 4. Flexibilidade e Poder Preditivo: O RandomForestRegressor é flexível e pode lidar com uma variedade de tipos de dados e problemas de regressão. Ele é particularmente eficaz quando os dados contêm relações complexas e não lineares.
 
+![GIF-RFR](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/files/graficos/random_forest_Regressor%20100%20linhas%20sem%20treinar.gif)
+
 [**Link para o codigo final**](https://github.com/Joao-vpf/Vdesafiodedados/blob/main/files/Code/main.py)
 
 ### Normalização:
